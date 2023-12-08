@@ -1,0 +1,103 @@
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+strong,
+sub,
+sup,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+body {
+  font-family: "Roboto";
+  line-height: 1;
+}
+
+#root {
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.container {
+  background-color: #fd7da9;
+}
+
+.MuiBottomNavigation-root {
+  position: fixed;
+  bottom: 0;
+  max-width: 100vw;
+}
+
+.nav-add {
+  background-color: #fd7da9 !important;
+  border-radius: 50% !important;
+  height: 80px;
+  bottom: 24px;
+  font-size: 20px;
+}
+
+.nav-add-icon {
+  width: 40px !important;
+  height: 40px !important;
+  color: #fff;
+}
+
+.spending-date-picker {
+  color: transparent;
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 3px 10px;
+  max-width: 90px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.react-datepicker__tab-loop {
+  position: absolute;
+}
+
+.spending-date-picker::placeholder {
+  color: #000;
+}
+
+.spending-search {
+  margin-top: 20px;
+  text-align: center;
+}
+.spending-search-bar {
+  width: 240px;
+  padding: 10px;
+  border: none;
+  background-color: #fd7da9;
+  color: #ffffff;
+  border-radius: 20px;
+}
+
+.spending-search-bar::placeholder {
+  color: #fff;
+}
