@@ -55,6 +55,7 @@ body {
   position: fixed;
   bottom: 0;
   max-width: 100vw;
+  background-color: #f0f0f5a1 !important;
 }
 
 .nav-add {
@@ -90,6 +91,9 @@ body {
 }
 
 .spending-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
   text-align: center;
 }
@@ -174,8 +178,8 @@ input:focus {
   width: 100%;
 }
 
-.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
-  border-radius: 40px !important;
+.MuiInputBase-root {
+  border-radius: 20px !important;
 }
 
 .spending-add-form_button {
@@ -194,4 +198,14 @@ input:focus {
 
 .datepicker {
   position: relative;
+}
+
+.spending-limit-header {
+  color: #fd7da9;
+}
+
+.spending-limit-add_icon {
+  color: #fd7da9;
+  margin-left: 20px;
+  font-size: 2rem !important;
 }

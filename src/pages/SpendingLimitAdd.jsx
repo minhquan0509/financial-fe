@@ -1,19 +1,22 @@
 import {
   Button,
   Container,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useState } from "react";
 import DatePicker from "react-mobile-datepicker";
-import { useEffect } from "react";
-import { dateConfig } from "../config/dateConfig";
+import "react-datepicker/dist/react-datepicker.css";
+// import dateCon from "../config/dateConfig";
+import { useState } from "react";
+import { dateConfigNoDay } from "../config/dateConfig";
 
-function SpendingAdd() {
+function SpendingLimitAdd() {
   const [category, setCategory] = useState("");
+
   const [dateData, setDateData] = useState({
     time: new Date(),
     isOpen: false,
@@ -34,12 +37,11 @@ function SpendingAdd() {
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
-
   return (
     <div className="home container">
       <Container className="spending-add-header">
         <ArrowBackIcon />
-        <h2 className="spending-add-title">Thêm khoản chi tiêu</h2>
+        <h2 className="spending-add-title">Thêm hạn mức chi tiêu</h2>
       </Container>
       <Container className="spending-add-body">
         <form>
@@ -51,34 +53,25 @@ function SpendingAdd() {
             placeholder="100.000 đ"
           />
           <div className="spending-add-form_wrapper">
-            <label className="spending-add-form_label">Chọn danh mục</label>
-            <RadioGroup
-              className="spending-add-form_radio-group"
-              name="controlled-radio-buttons-group"
-              value={category}
-              onChange={handleChangeCategory}
-            >
-              <FormControlLabel
-                value="eat"
-                control={<Radio />}
-                label="Ăn uống"
-              />
-              <FormControlLabel
-                value="transport"
-                control={<Radio />}
-                label="Đi lại"
-              />
-              <FormControlLabel
-                value="learn"
-                control={<Radio />}
-                label="Học tập"
-              />
-            </RadioGroup>
-            <TextField
+            {/* <label className="spending-add-form_label">Chọn danh mục</label> */}
+            <FormControl fullWidth>
+              <Select
+                value={category}
+                onChange={handleChangeCategory}
+                displayEmpty
+                placeholder={"Category"}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value={"eat"}>Ăn uống</MenuItem>
+                <MenuItem value={"shopping"}>Mua sắm</MenuItem>
+                <MenuItem value={"study"}>Học tập</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <TextField
               className="spending-add-form_text"
               style={{ borderRadius: "20px !important" }}
               placeholder="Mua áo"
-            />
+            /> */}
             <DatePicker
               showCaption={false}
               showHeader={false}
@@ -88,12 +81,12 @@ function SpendingAdd() {
               onChange={handleSelect}
               onSelect={handleSelect}
               onCancel={handleCancel}
-              dateFormat={["DD", "MM", "YYYY"]}
+              dateFormat={["MM", "YYYY"]}
               confirmText=""
               cancelText=""
-              dateConfig={dateConfig}
+              dateConfig={dateConfigNoDay}
             />
-            <Button className="spending-add-form_button">Thêm giao dịch</Button>
+            <Button className="spending-add-form_button">Thêm Hạn Mức</Button>
           </div>
         </form>
       </Container>
@@ -101,4 +94,4 @@ function SpendingAdd() {
   );
 }
 
-export default SpendingAdd;
+export default SpendingLimitAdd;
