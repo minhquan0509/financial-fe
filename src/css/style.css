@@ -40,11 +40,15 @@ body {
 
 #root {
   min-height: 100vh;
-  padding: 12px;
 }
 
 .container {
   background-color: #fd7da9;
+  min-height: 100vh;
+}
+
+.home {
+  background-image: linear-gradient(to bottom, #fd7da9, #fff);
 }
 
 .MuiBottomNavigation-root {
@@ -104,4 +108,81 @@ body {
 
 .footer-nav {
   display: contents;
+}
+
+.spending-add-header {
+  display: flex !important;
+  justify-content: start;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding-top: 24px;
+}
+
+.spending-add-title {
+  margin-left: 40px;
+}
+
+.spending-add-body {
+  margin-top: 24px;
+  padding: 0 !important;
+}
+
+.spending-add-money {
+  border: none;
+  background-color: transparent;
+  font-size: 40px;
+  max-width: 200px;
+  color: #ffe3ed;
+  margin-left: 20px;
+}
+
+.spending-add-money::placeholder {
+  color: #ffe3ed;
+}
+
+input:focus {
+  border: none;
+}
+
+.spending-add-form_wrapper {
+  margin-top: 100px;
+  border-radius: 50px;
+  height: 70vh;
+  background-color: #fff;
+  padding: 26px 20px;
+}
+
+.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  color: #fd7da9 !important;
+}
+
+.MuiSvgIcon-root {
+  /* color: #fd7da9 !important; */
+}
+
+.spending-add-form_label {
+  font-size: 20px;
+}
+
+.spending-add-form_radio-group {
+  margin-top: 10px;
+}
+
+.spending-add-form_text {
+  width: 100%;
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 40px !important;
+}
+
+.spending-add-form_button {
+  color: #fff !important;
+  background-color: #fd7da9 !important;
+  margin-top: 40px !important;
+  width: 100%;
+  border-radius: 20px !important;
+  height: 50px;
 }
