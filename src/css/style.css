@@ -101,3 +101,7 @@ body {
 .spending-search-bar::placeholder {
   color: #fff;
 }
+
+.footer-nav {
+  display: contents;
+}
