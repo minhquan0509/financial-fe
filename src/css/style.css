@@ -147,9 +147,9 @@ input:focus {
 }
 
 .spending-add-form_wrapper {
-  margin-top: 100px;
+  margin-top: 60px;
   border-radius: 50px;
-  height: 70vh;
+  min-height: 70vh;
   background-color: #fff;
   padding: 26px 20px;
 }
@@ -181,8 +181,17 @@ input:focus {
 .spending-add-form_button {
   color: #fff !important;
   background-color: #fd7da9 !important;
-  margin-top: 40px !important;
   width: 100%;
+  margin-bottom: 80px !important;
   border-radius: 20px !important;
   height: 50px;
+}
+
+.datepicker.default {
+  background-color: transparent;
+  font-family: inherit;
+}
+
+.datepicker {
+  position: relative;
 }
