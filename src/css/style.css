@@ -73,7 +73,7 @@ body {
 }
 
 .spending-date-picker {
-  color: transparent;
+  color: black;
   position: relative;
   border: 1px solid #ccc;
   padding: 3px 10px;
@@ -95,6 +95,9 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 .spending-search-bar {
@@ -108,6 +111,45 @@ body {
 
 .spending-search-bar::placeholder {
   color: #fff;
+}
+
+.spending-list {
+  margin-top: 20px;
+}
+.spending-date{
+  font-size: larger;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.spending-detail-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spending-icon {
+  background-color: rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.spending-category{
+  display: flex;
+  align-items: center;
+}
+
+.spending-info-category {
+  font-weight: 500;
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: larger;
+  font-weight: 600;
+  color: red;
 }
 
 .footer-nav {
