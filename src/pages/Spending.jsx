@@ -19,7 +19,7 @@ function Spending() {
       .then((res) => {
         setData(res.data.data.spendings)
       })
-  })
+  }, [])
 
   return (
     <Container className="spending">
