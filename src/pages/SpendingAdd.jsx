@@ -11,13 +11,26 @@ import { useState } from "react";
 import DatePicker from "react-mobile-datepicker";
 import { useEffect } from "react";
 import { dateConfig } from "../config/dateConfig";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SpendingAdd() {
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState("");
   const [category, setCategory] = useState("");
+  const [money, setMoney] = useState("");
+  const [note, setNote] = useState("");
+
   const [dateData, setDateData] = useState({
     time: new Date(),
     isOpen: false,
   });
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/categories").then((res) => {
+      setCategories(res.data.data.categories);
+    });
+  }, []);
 
   const handleClick = () => {
     setDateData({ isOpen: true });
@@ -35,6 +48,17 @@ function SpendingAdd() {
     setCategory(event.target.value);
   };
 
+  const handleSubmit = () => {
+    axios
+      .post("http://localhost:3001/spendings", {
+        money,
+        note,
+        date: `${dateData.time.getFullYear()}/${dateData.time.getMonth()}/${dateData.time.getDate()}`,
+        categoryId: category,
+      })
+      .then(navigate("/spendings"));
+  };
+
   return (
     <div className="home container">
       <Container className="spending-add-header">
@@ -48,6 +72,7 @@ function SpendingAdd() {
             type="number"
             name=""
             id=""
+            onChange={(event) => setMoney(event.target.value)}
             placeholder="100.000 đ"
           />
           <div className="spending-add-form_wrapper">
@@ -58,26 +83,21 @@ function SpendingAdd() {
               value={category}
               onChange={handleChangeCategory}
             >
-              <FormControlLabel
-                value="eat"
-                control={<Radio />}
-                label="Ăn uống"
-              />
-              <FormControlLabel
-                value="transport"
-                control={<Radio />}
-                label="Đi lại"
-              />
-              <FormControlLabel
-                value="learn"
-                control={<Radio />}
-                label="Học tập"
-              />
+              {categories.length
+                ? categories.map((item) => (
+                    <FormControlLabel
+                      value={item.id}
+                      control={<Radio />}
+                      label={item.name}
+                    />
+                  ))
+                : null}
             </RadioGroup>
             <TextField
               className="spending-add-form_text"
               style={{ borderRadius: "20px !important" }}
               placeholder="Mua áo"
+              onChange={(event) => setNote(event.target.value)}
             />
             <DatePicker
               showCaption={false}
@@ -93,7 +113,9 @@ function SpendingAdd() {
               cancelText=""
               dateConfig={dateConfig}
             />
-            <Button className="spending-add-form_button">Thêm giao dịch</Button>
+            <Button onClick={handleSubmit} className="spending-add-form_button">
+              Thêm giao dịch
+            </Button>
           </div>
         </form>
       </Container>

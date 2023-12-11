@@ -11,16 +11,27 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DatePicker from "react-mobile-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import dateCon from "../config/dateConfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dateConfigNoDay } from "../config/dateConfig";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SpendingLimitAdd() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState("");
+  const [money, setMoney] = useState("");
 
   const [dateData, setDateData] = useState({
     time: new Date(),
     isOpen: false,
   });
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/categories").then((res) => {
+      setCategories(res.data.data.categories);
+    });
+  }, []);
 
   const handleClick = () => {
     setDateData({ isOpen: true });
@@ -37,6 +48,15 @@ function SpendingLimitAdd() {
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
+
+  const handleSubmit = async () => {
+    await axios.post("http://localhost:3001/limits", {
+      limitMoney: money,
+      date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
+      categoryId: category,
+    });
+    navigate("/spendings-limit");
+  };
   return (
     <div className="home container">
       <Container className="spending-add-header">
@@ -51,6 +71,7 @@ function SpendingLimitAdd() {
             name=""
             id=""
             placeholder="100.000 đ"
+            onChange={(event) => setMoney(event.target.value)}
           />
           <div className="spending-add-form_wrapper">
             {/* <label className="spending-add-form_label">Chọn danh mục</label> */}
@@ -62,9 +83,11 @@ function SpendingLimitAdd() {
                 placeholder={"Category"}
                 inputProps={{ "aria-label": "Without label" }}
               >
-                <MenuItem value={"eat"}>Ăn uống</MenuItem>
-                <MenuItem value={"shopping"}>Mua sắm</MenuItem>
-                <MenuItem value={"study"}>Học tập</MenuItem>
+                {categories.length
+                  ? categories.map((item) => (
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                    ))
+                  : null}
               </Select>
             </FormControl>
             {/* <TextField
@@ -86,7 +109,9 @@ function SpendingLimitAdd() {
               cancelText=""
               dateConfig={dateConfigNoDay}
             />
-            <Button className="spending-add-form_button">Thêm Hạn Mức</Button>
+            <Button onClick={handleSubmit} className="spending-add-form_button">
+              Thêm Hạn Mức
+            </Button>
           </div>
         </form>
       </Container>

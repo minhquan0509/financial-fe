@@ -31,14 +31,14 @@ export const dateConfig = {
 };
 
 export const dateConfigNoDay = {
+  year: {
+    format: "YYYY",
+    caption: "Year",
+    step: 1,
+  },
   month: {
     format: (value) => monthMap[value.getMonth() + 1],
     caption: "Mon",
-    step: 1,
-  },
-  date: {
-    format: "DD",
-    caption: "Day",
     step: 1,
   },
 };
