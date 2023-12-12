@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 function SpendingAdd() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState("");
-  const [category, setCategory] = useState("");
-  const [money, setMoney] = useState("");
+  const [category, setCategory] = useState(1);
+  const [money, setMoney] = useState(100000);
   const [note, setNote] = useState("");
 
   const [dateData, setDateData] = useState({

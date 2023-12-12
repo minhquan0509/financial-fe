@@ -16,7 +16,7 @@ function App() {
         <Route path="/spendings-limit" element={<SpendingLimit />} />
         <Route path="/spendings-limit-add" element={<SpendingLimitAdd />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

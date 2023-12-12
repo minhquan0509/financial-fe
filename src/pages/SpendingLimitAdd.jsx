@@ -18,9 +18,9 @@ import { useNavigate } from "react-router-dom";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(1);
   const [categories, setCategories] = useState("");
-  const [money, setMoney] = useState("");
+  const [money, setMoney] = useState(100000);
 
   const [dateData, setDateData] = useState({
     time: new Date(),
