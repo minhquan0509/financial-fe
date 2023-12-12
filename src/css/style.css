@@ -120,6 +120,7 @@ body {
 
 .spending-list {
   margin-top: 20px;
+  margin-bottom: 80px;
 }
 .spending-date {
   font-size: larger;
@@ -245,6 +246,7 @@ input:focus {
 .datepicker.default {
   background-color: transparent;
   font-family: inherit;
+  z-index: unset;
 }
 
 .datepicker {

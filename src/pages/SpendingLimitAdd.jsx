@@ -60,7 +60,7 @@ function SpendingLimitAdd() {
   return (
     <div className="home container">
       <Container className="spending-add-header">
-        <ArrowBackIcon />
+        <ArrowBackIcon onClick={() => navigate(-1)} />
         <h2 className="spending-add-title">Thêm hạn mức chi tiêu</h2>
       </Container>
       <Container className="spending-add-body">
