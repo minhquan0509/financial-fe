@@ -105,6 +105,7 @@ function SpendingAdd() {
               value={dateData.time}
               isOpen={true}
               isPopup={false}
+              theme={"ios"}
               onChange={handleSelect}
               onSelect={handleSelect}
               onCancel={handleCancel}

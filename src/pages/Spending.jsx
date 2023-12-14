@@ -47,7 +47,7 @@ function Spending() {
           <FilterListIcon />
         </div>
         <div className="spending-search">
-          <Search style={{ color: "#fd7da9", marginRight: "10px" }} />
+          <Search style={{ color: "#fd3c81e5", marginRight: "10px" }} />
           <input className="spending-search-bar" placeholder="Tìm kiếm" />
         </div>
         <div className="spending-list">

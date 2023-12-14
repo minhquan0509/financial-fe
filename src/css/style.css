@@ -43,12 +43,12 @@ body {
 }
 
 .container {
-  background-color: #fd7da9;
+  background-color: #fd3c81e5;
   min-height: 100vh;
 }
 
 .home {
-  background-image: linear-gradient(to bottom, #fd7da9, #fff);
+  background-image: linear-gradient(to bottom, #fd3c81e5, #fff);
 }
 
 .MuiBottomNavigation-root {
@@ -56,10 +56,11 @@ body {
   bottom: 0;
   max-width: 100vw;
   background-color: #f0f0f5 !important;
+  margin-bottom: -1px;
 }
 
 .nav-add {
-  background-color: #fd7da9 !important;
+  background-color: #fd3c81e5 !important;
   border-radius: 50% !important;
   height: 80px;
   bottom: 24px;
@@ -108,7 +109,7 @@ body {
   width: 240px;
   padding: 10px;
   border: none;
-  background-color: #fd7da9;
+  background-color: #fd3c81e5;
   color: #ffffff;
   border-radius: 50px;
   height: 20px;
@@ -211,11 +212,11 @@ input:focus {
 }
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
-  color: #fd7da9 !important;
+  color: #fd3c81e5 !important;
 }
 
 .MuiSvgIcon-root {
-  /* color: #fd7da9 !important; */
+  /* color: #fd3c81e5 !important; */
 }
 
 .spending-add-form_label {
@@ -236,7 +237,7 @@ input:focus {
 
 .spending-add-form_button {
   color: #fff !important;
-  background-color: #fd7da9 !important;
+  background-color: #fd3c81e5 !important;
   width: 100%;
   margin-bottom: 80px !important;
   border-radius: 20px !important;
@@ -254,14 +255,14 @@ input:focus {
 }
 
 .spending-limit-header {
-  color: #fd7da9;
+  color: #fd3c81e5;
 }
 
 .spending-limit-add_icon {
-  color: #fd7da9;
+  color: #fd3c81e5;
   margin-left: 20px;
   font-size: 2rem !important;
-  stroke: #fd7da9;
+  stroke: #fd3c81e5;
   stroke-width: 2;
 }
 
@@ -279,4 +280,76 @@ input:focus {
   border-radius: 50px;
   right: 10px;
   bottom: -10px;
+}
+
+.statistic-container {
+  min-height: 100vh;
+}
+
+.statistic-title {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.statistic-button-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.statistic-button {
+  padding: 16px;
+  color: #fd3c81e5;
+  border: 1px solid #fd3c81e5;
+}
+
+.button-monthly {
+  border-radius: 25px 0 0 25px;
+}
+
+.button-yearly {
+  border-radius: 0 25px 25px 0;
+}
+
+.statistic-button-active {
+  background-color: #fd3c81e5;
+  color: #fff;
+}
+
+.statistic-button-month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fd3c81e5;
+  border-radius: 50%;
+  padding: 6px;
+  color: #fd3c81e5;
+  height: 40px;
+  width: 40px;
+}
+
+.statistic-month {
+  color: #fd3c81e5;
+  text-align: center;
+  background-color: #fd3c8126;
+  width: 100px;
+  padding: 18px;
+  border: 1px solid #fd3c81e5;
+  margin: auto 20px;
+  border-radius: 25px;
+}
+
+.statistic-spendings {
+  width: 100vw-32px;
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
 }
