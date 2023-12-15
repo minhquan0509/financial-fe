@@ -106,6 +106,7 @@ function SpendingLimitAdd() {
               onChange={handleSelect}
               onSelect={handleSelect}
               onCancel={handleCancel}
+              theme={"ios"}
               dateFormat={["MM", "YYYY"]}
               confirmText=""
               cancelText=""
