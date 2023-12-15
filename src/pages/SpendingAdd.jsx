@@ -27,9 +27,11 @@ function SpendingAdd() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3001/categories").then((res) => {
-      setCategories(res.data.data.categories);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`)
+      .then((res) => {
+        setCategories(res.data.data.categories);
+      });
   }, []);
 
   const handleClick = () => {
@@ -50,7 +52,7 @@ function SpendingAdd() {
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost:3001/spendings", {
+      .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
         money,
         note,
         date: `${dateData.time.getFullYear()}/${dateData.time.getMonth()}/${dateData.time.getDate()}`,

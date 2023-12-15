@@ -28,9 +28,11 @@ function SpendingLimitAdd() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3001/categories").then((res) => {
-      setCategories(res.data.data.categories);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`)
+      .then((res) => {
+        setCategories(res.data.data.categories);
+      });
   }, []);
 
   const handleClick = () => {
@@ -50,7 +52,7 @@ function SpendingLimitAdd() {
   };
 
   const handleSubmit = async () => {
-    await axios.post("http://localhost:3001/limits", {
+    await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
       limitMoney: money,
       date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
       categoryId: category,

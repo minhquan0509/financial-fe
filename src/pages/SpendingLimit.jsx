@@ -18,9 +18,11 @@ function SpendingLimit() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/limits").then((res) => {
-      setData(res.data.data.limitCategories);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`)
+      .then((res) => {
+        setData(res.data.data.limitCategories);
+      });
   }, []);
   return (
     <>
@@ -56,7 +58,7 @@ function SpendingLimit() {
                   {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
                   <img
                     src={
-                      "http://localhost:3001/icons/" +
+                      `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
                       spending.Category.Icon.content
                     }
                     alt="icon"

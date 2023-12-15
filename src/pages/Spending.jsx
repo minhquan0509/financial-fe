@@ -15,9 +15,11 @@ function Spending() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/spendings").then((res) => {
-      setData(res.data.data.spendings);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`)
+      .then((res) => {
+        setData(res.data.data.spendings);
+      });
   }, []);
 
   return (
@@ -61,7 +63,7 @@ function Spending() {
                       {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
                       <img
                         src={
-                          "http://localhost:3001/icons/" +
+                          `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
                           spending.Category.Icon.content
                         }
                         alt="icon"
