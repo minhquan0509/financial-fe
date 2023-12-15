@@ -251,7 +251,7 @@ input:focus {
 }
 
 .datepicker {
-  position: relative;
+  position: relative !important;
 }
 
 .spending-limit-header {
