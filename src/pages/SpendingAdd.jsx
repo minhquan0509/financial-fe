@@ -13,6 +13,12 @@ import { useEffect } from "react";
 import { dateConfig } from "../config/dateConfig";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function SpendingAdd() {
   const navigate = useNavigate();
@@ -20,6 +26,7 @@ function SpendingAdd() {
   const [category, setCategory] = useState(1);
   const [money, setMoney] = useState(100000);
   const [note, setNote] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -36,6 +43,11 @@ function SpendingAdd() {
 
   const handleClick = () => {
     setDateData({ isOpen: true });
+  };
+
+  const handleToggle = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    setShowDatePicker(!showDatePicker);
   };
 
   const handleCancel = () => {
@@ -78,29 +90,33 @@ function SpendingAdd() {
             placeholder="100.000 đ"
           />
           <div className="spending-add-form_wrapper">
-            <label className="spending-add-form_label">Chọn danh mục</label>
-            <RadioGroup
-              className="spending-add-form_radio-group"
-              name="controlled-radio-buttons-group"
+          <FormControl sx={{ minWidth: 350 }}>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
               value={category}
               onChange={handleChangeCategory}
+              displayEmpty
+              label="Category"
             >
               {categories.length
-                ? categories.map((item) => (
-                    <FormControlLabel
-                      value={item.id}
-                      control={<Radio />}
-                      label={item.name}
-                    />
-                  ))
-                : null}
-            </RadioGroup>
-            <TextField
+                    ? categories.map((item) => (
+                        <MenuItem
+                          value={item.id}
+                        >{item.name}</MenuItem>
+                      ))
+                    : null}
+              
+            </Select>
+          </FormControl>
+          <TextField
               className="spending-add-form_text"
-              style={{ borderRadius: "20px !important" }}
+              style={{ borderRadius: "20px !important", marginTop: '10px' }}
               placeholder="Mua áo"
               onChange={(event) => setNote(event.target.value)}
             />
+          <button className="spending-add-form_date"
+               onClick={handleToggle}>Month<KeyboardArrowDownIcon/></button>
+          {showDatePicker && (
             <DatePicker
               showCaption={false}
               showHeader={false}
@@ -116,6 +132,7 @@ function SpendingAdd() {
               cancelText=""
               dateConfig={dateConfig}
             />
+          )}
             <Button onClick={handleSubmit} className="spending-add-form_button">
               Thêm giao dịch
             </Button>

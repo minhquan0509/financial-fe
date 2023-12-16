@@ -235,6 +235,22 @@ input:focus {
   border-radius: 20px !important;
 }
 
+.spending-add-form_date {
+  border: 1px solid #c4c4c4 !important;
+  border-radius: 20px !important;
+  padding: 15px !important;
+  min-width: 350px !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  background-color: white;
+  /* text-align: left; */
+  font-size: 16px !important;
+  color: #000 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .spending-add-form_button {
   color: #fff !important;
   background-color: #fd3c81e5 !important;
