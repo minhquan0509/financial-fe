@@ -115,7 +115,7 @@ function SpendingAdd() {
               onChange={(event) => setNote(event.target.value)}
             />
           <button className="spending-add-form_date"
-               onClick={handleToggle}>Month<KeyboardArrowDownIcon/></button>
+               onClick={handleToggle}>{dateData.time.getDate()}/{(dateData.time.getMonth() + 1).toString().padStart(2, '0')}/{dateData.time.getFullYear()}<KeyboardArrowDownIcon/></button>
           {showDatePicker && (
             <DatePicker
               showCaption={false}
