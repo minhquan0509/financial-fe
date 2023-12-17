@@ -135,7 +135,7 @@ function StatisticMonth() {
             {dataArray.length && dataArray[detail] ? (
               <tr>
                 <th>Tổng cộng:</th>
-                <th>{dataArray[detail].totalAmount}</th>
+                <th>{dataArray[detail].totalAmount} đ</th>
               </tr>
             ) : (
               "Không có dữ liệu"
@@ -146,7 +146,7 @@ function StatisticMonth() {
               ? dataArray[detail].categories.map((item) => (
                   <tr>
                     <td>{item.Category.name}:</td>
-                    <td>{item.totalSpendings}</td>
+                    <td>{item.totalSpendings} đ</td>
                   </tr>
                 ))
               : null}

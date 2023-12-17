@@ -32,10 +32,10 @@ export default function Footer() {
           icon={<Add className="nav-add-icon" />}
         />
       </Link>
-      <Link className="footer-nav" to="/spendings-limit">
+      <Link className="footer-nav" to="/statistics">
         <BottomNavigationAction value="useage" icon={<LimitIcon />} />
       </Link>
-      <Link className="footer-nav" to="/spendings-add">
+      <Link className="footer-nav" to="/">
         <BottomNavigationAction value="menu" icon={<MenuIcon />} />
       </Link>
     </BottomNavigation>
