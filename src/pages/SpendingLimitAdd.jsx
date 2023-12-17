@@ -15,12 +15,15 @@ import { useEffect, useState } from "react";
 import { dateConfigNoDay } from "../config/dateConfig";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
   const [category, setCategory] = useState(1);
   const [categories, setCategories] = useState("");
   const [money, setMoney] = useState(100000);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -38,6 +41,12 @@ function SpendingLimitAdd() {
   const handleClick = () => {
     setDateData({ isOpen: true });
   };
+
+  const handleToggle = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    setShowDatePicker(!showDatePicker);
+  };
+
 
   const handleCancel = () => {
     setDateData({ isOpen: false });
@@ -97,21 +106,25 @@ function SpendingLimitAdd() {
               style={{ borderRadius: "20px !important" }}
               placeholder="Mua áo"
             /> */}
-            <DatePicker
-              showCaption={false}
-              showHeader={false}
-              value={dateData.time}
-              isOpen={true}
-              isPopup={false}
-              onChange={handleSelect}
-              onSelect={handleSelect}
-              onCancel={handleCancel}
-              theme={"ios"}
-              dateFormat={["MM", "YYYY"]}
-              confirmText=""
-              cancelText=""
-              dateConfig={dateConfigNoDay}
-            />
+            <button className="spending-add-form_date"
+               onClick={handleToggle}>{(dateData.time.getMonth() + 1).toString().padStart(2, '0')}/{dateData.time.getFullYear()}<KeyboardArrowDownIcon/></button>
+            {showDatePicker && (
+              <DatePicker
+                showCaption={false}
+                showHeader={false}
+                value={dateData.time}
+                isOpen={true}
+                isPopup={false}
+                onChange={handleSelect}
+                onSelect={handleSelect}
+                onCancel={handleCancel}
+                theme={"ios"}
+                dateFormat={["MM", "YYYY"]}
+                confirmText=""
+                cancelText=""
+                dateConfig={dateConfigNoDay}
+              />
+          )}
             <Button onClick={handleSubmit} className="spending-add-form_button">
               Thêm Hạn Mức
             </Button>
