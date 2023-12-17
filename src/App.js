@@ -7,7 +7,22 @@ import SpendingAdd from "./pages/SpendingAdd";
 import SpendingLimit from "./pages/SpendingLimit";
 import SpendingLimitAdd from "./pages/SpendingLimitAdd";
 import Statistic from "./pages/Statistic";
+import { useEffect } from "react";
+import { getMessagingToken, onMessageListener } from "./firebase";
 function App() {
+  useEffect(() => {
+    getMessagingToken();
+    const channel = new BroadcastChannel("notifications");
+    channel.addEventListener("message", (event) => {
+      console.log("Receive background: ", event.data);
+    });
+  }, []);
+  useEffect(() => {
+    onMessageListener().then((data) => {
+      console.log("Receive foreground: ", data);
+      alert(`${data.notification.title} ${data.notification.body}`);
+    });
+  });
   return (
     <>
       <Routes>
