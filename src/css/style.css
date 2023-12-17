@@ -283,7 +283,8 @@ input:focus {
 }
 
 .statistic-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
+  margin-bottom: 60px;
 }
 
 .statistic-title {
