@@ -298,6 +298,7 @@ input:focus {
   display: flex;
   justify-content: center;
   font-weight: 500;
+  margin-bottom: 40px;
 }
 
 .statistic-button {
@@ -335,10 +336,10 @@ input:focus {
   color: #fd3c81e5;
   text-align: center;
   background-color: #fd3c8126;
-  width: 100px;
+  width: 120px;
   padding: 18px;
   border: 1px solid #fd3c81e5;
-  margin: auto 20px;
+  margin: auto 40px;
   border-radius: 25px;
 }
 
@@ -352,4 +353,14 @@ th,
 td {
   text-align: left;
   padding: 8px;
+}
+
+.chart-container {
+  padding: 0 30px;
+  background-color: #fff;
+}
+
+.chart-wrapper {
+  overflow: auto;
+  margin-left: -30px;
 }
