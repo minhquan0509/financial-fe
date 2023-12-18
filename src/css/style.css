@@ -381,3 +381,8 @@ td {
   overflow: auto;
   margin-left: -30px;
 }
+
+.error-message {
+  color: red;
+  margin-left: 4px;
+}
