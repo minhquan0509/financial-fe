@@ -26,10 +26,14 @@ ChartJS.register(
 );
 
 export const options = {
+  maintainAspectRatio: false,
   responsive: true,
   plugins: {
     legend: {
       display: false,
+    },
+    tooltip: {
+      enabled: false,
     },
   },
   barThickness: 40,
@@ -40,6 +44,7 @@ export const options = {
       },
     },
     y: {
+      display: false,
       grid: {
         display: false,
       },
@@ -108,6 +113,7 @@ function StatisticMonth() {
         backgroundColor: "#74C0FF",
         barPercentage: 0.9,
         categoryPercentage: 1,
+        borderRadius: 5,
       },
     ],
   };
@@ -125,7 +131,10 @@ function StatisticMonth() {
         </div>
       </div>
       <Container className="chart-container">
-        <div className="chart-wrapper">
+        <div
+          className="chart-wrapper"
+          style={{ width: `${dataArray.length * 80}px` }}
+        >
           <Bar onClick={onClick} options={options} data={data} ref={chartRef} />
         </div>
       </Container>

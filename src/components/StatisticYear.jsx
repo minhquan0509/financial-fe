@@ -31,6 +31,9 @@ export const options = {
     legend: {
       display: false,
     },
+    tooltip: {
+      enabled: false,
+    },
   },
   barThickness: 40,
   scales: {
@@ -40,6 +43,7 @@ export const options = {
       },
     },
     y: {
+      display: false,
       grid: {
         display: false,
       },
@@ -86,13 +90,13 @@ function StatisticYear() {
 
   const getSpendings = () => {
     if (dataArray.length) {
-      return dataArray.map((item, index) => item.totalSpendings);
+      return dataArray.map((item, index) => item.totalSpendings).reverse();
     }
     return [];
   };
   const getDays = () => {
     if (dataArray.length) {
-      return dataArray.map((item) => `Tháng ${item.month}`);
+      return dataArray.map((item) => `Tháng ${item.month}`).reverse();
     }
     return [];
   };
@@ -104,6 +108,7 @@ function StatisticYear() {
         backgroundColor: "#74C0FF",
         barPercentage: 0.9,
         categoryPercentage: 1,
+        borderRadius: 5,
       },
     ],
   };
@@ -119,7 +124,10 @@ function StatisticYear() {
         </div>
       </div>
       <Container className="chart-container">
-        <div className="chart-wrapper">
+        <div
+          className="chart-wrapper"
+          // style={{ width: `${dataArray.length * 80}px` }}
+        >
           <Bar onClick={onClick} options={options} data={data} ref={chartRef} />
         </div>
       </Container>
