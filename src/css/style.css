@@ -381,3 +381,8 @@ td {
 .chart-wrapper {
   padding: 0 20px;
 }
+
+.error-message {
+  color: red;
+  margin-left: 4px;
+}

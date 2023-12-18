@@ -27,6 +27,7 @@ function SpendingAdd() {
   const [money, setMoney] = useState(100000);
   const [note, setNote] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState({'category': "", 'note': ""})
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -62,15 +63,26 @@ function SpendingAdd() {
     setCategory(event.target.value);
   };
 
-  const handleSubmit = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
-        money,
-        note,
-        date: `${dateData.time.getFullYear()}/${dateData.time.getMonth()}/${dateData.time.getDate()}`,
-        categoryId: category,
-      })
-      .then(navigate("/spendings"));
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    if (!category) {
+      setError({category: "*category is required"})
+    }
+    // if (!note) {
+    //   setError({note: "*note is required"})
+    // }
+
+    if (category && money) {
+      axios
+        .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
+          money,
+          note,
+          date: `${dateData.time.getFullYear()}/${dateData.time.getMonth()+1}/${dateData.time.getDate()}`,
+          categoryId: category,
+        })
+        .then(navigate("/spendings"));
+    }
   };
 
   return (
@@ -91,12 +103,12 @@ function SpendingAdd() {
           />
           <div className="spending-add-form_wrapper">
           <FormControl sx={{ minWidth: 350 }}>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <InputLabel required id="demo-simple-select-label">Danh mục</InputLabel>
             <Select
               value={category}
               onChange={handleChangeCategory}
               displayEmpty
-              label="Category"
+              label="Danh mục"
             >
               {categories.length
                     ? categories.map((item) => (
@@ -107,13 +119,17 @@ function SpendingAdd() {
                     : null}
               
             </Select>
+            <div className="error-message">{error.category}</div>
           </FormControl>
           <TextField
               className="spending-add-form_text"
               style={{ borderRadius: "20px !important", marginTop: '10px' }}
               placeholder="Mua áo"
+              required
               onChange={(event) => setNote(event.target.value)}
             />
+            <div className="error-message">{error.note}</div>
+
           <button className="spending-add-form_date"
                onClick={handleToggle}>{dateData.time.getDate()}/{(dateData.time.getMonth() + 1).toString().padStart(2, '0')}/{dateData.time.getFullYear()}<KeyboardArrowDownIcon/></button>
           {showDatePicker && (
