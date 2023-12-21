@@ -1,59 +1,64 @@
-import { createStyles, createTheme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import React from "react";
 import clsx from "clsx";
-const defaultTheme = createTheme();
-const useStyles = makeStyles(
-  (theme) =>
-    createStyles({
-      root: {
-        // border: `1px solid ${theme.palette.divider}`,
-        position: "relative",
-        overflow: "hidden",
-        width: "100%",
-        height: 26,
-        borderRadius: 50,
-        backgroundColor: "#ccc",
-      },
-      value: {
-        color: "#fff",
-        fontWeight: 500,
-        position: "absolute",
-        lineHeight: "24px",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-      },
-      bar: {
-        borderRadius: 50,
-        height: "100%",
-        "&.low": {
-          backgroundColor: "#f44336",
-        },
-        "&.medium": {
-          backgroundColor: "#efbb5aa3",
-        },
-        "&.high": {
-          backgroundColor: "#088208a3",
-        },
-      },
-    }),
-  { defaultTheme }
-);
+
+const styles = {
+  root: {
+    position: "relative",
+    overflow: "hidden",
+    width: "100%",
+    height: 26,
+    borderRadius: 50,
+    backgroundColor: "#ccc",
+  },
+  value: {
+    color: "#fff",
+    fontWeight: 500,
+    position: "absolute",
+    lineHeight: "24px",
+    // width: "100%",
+    display: "flex",
+    justifyContent: "center",
+  },
+  bar: {
+    borderRadius: 50,
+    height: "100%",
+  },
+  low: {
+    backgroundColor: "#f44336",
+  },
+  medium: {
+    backgroundColor: "#efbb5aa3",
+  },
+  high: {
+    backgroundColor: "#088208a3",
+  },
+};
+
+const getColor = (value) => {
+  if (value <= 30) return "#63d597";
+  if (value > 30 && value <= 70) return "#f2d758";
+  if (value > 70 && value <= 100) return "#eb5757";
+  if (value > 100) return "#a30000";
+};
 
 function PercentageBar({ value }) {
   const valueInPercent = value * 100;
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div style={styles.root}>
       <div
-        className={classes.value}
+        style={{
+          ...styles.value,
+          width: `${valueInPercent > 100 ? 100 : valueInPercent}%`,
+          backgroundColor: getColor(valueInPercent),
+          borderRadius: "30px",
+        }}
       >{`${valueInPercent.toLocaleString()} %`}</div>
       <div
-        className={clsx(classes.bar, {
-          low: valueInPercent < 30,
-          medium: valueInPercent >= 30 && valueInPercent <= 70,
-          high: valueInPercent > 70,
+        className={clsx(styles.bar, {
+          [styles.low]: valueInPercent < 30,
+          [styles.medium]: valueInPercent >= 30 && valueInPercent <= 70,
+          [styles.high]: valueInPercent > 70,
         })}
         style={{ maxWidth: `${valueInPercent}%` }}
       />

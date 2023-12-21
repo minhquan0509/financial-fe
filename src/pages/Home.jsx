@@ -39,7 +39,27 @@ function Home() {
               <td className="col1">Đi lại</td>
 
               <td className="col2">
-                <PercentageBar value={0.25} />
+                <PercentageBar value={0.75} />
+              </td>
+              <td className="col3">
+                <img src="/warning.png" />
+              </td>
+            </tr>
+            <tr>
+              <td className="col1">Ăn uống</td>
+
+              <td className="col2">
+                <PercentageBar value={0.55} />
+              </td>
+              <td className="col3">
+                <img src="/warning.png" />
+              </td>
+            </tr>
+            <tr>
+              <td className="col1">Nhà</td>
+
+              <td className="col2">
+                <PercentageBar value={0.05} />
               </td>
               <td className="col3">
                 <img src="/warning.png" />
