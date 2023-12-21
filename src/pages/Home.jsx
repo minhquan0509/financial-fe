@@ -29,7 +29,7 @@ function Home() {
             <tr>
               <th className="col1">Tổng cộng:</th>
               <th className="col2">
-                <PercentageBar value={0.75} />
+                <PercentageBar value={1.8} />
               </th>
               <th className="col3"></th>
             </tr>

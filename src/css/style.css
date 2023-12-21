@@ -437,3 +437,7 @@ td {
 .col3 {
   width: 5%;
 }
+.error-message {
+  color: red;
+  margin-left: 4px;
+}
