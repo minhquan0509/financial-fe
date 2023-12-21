@@ -24,7 +24,7 @@ li {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  font-family: "Inter", sans-serif;
   vertical-align: baseline;
 }
 
@@ -43,12 +43,46 @@ body {
 }
 
 .container {
-  background-color: #fd3c81e5;
+  /* background-color: #fd3c81e5; */
   min-height: 100vh;
 }
 
-.home {
-  background-image: linear-gradient(to bottom, #fd3c81e5, #fff);
+.home-container {
+  background: linear-gradient(
+    182deg,
+    rgba(253, 60, 129, 0.16) 9.01%,
+    rgba(248, 237, 216, 0) 64.58%
+  );
+  padding: 10px;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.home-logo {
+  display: flex;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fd3c81e5;
+  border-radius: 50%;
+  padding: 6px;
+  color: #fd3c81e5;
+  height: 40px;
+  width: 40px;
+}
+
+.home-total-spendings {
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.home-total-money {
+  color: #fd3c4a;
 }
 
 .MuiBottomNavigation-root {
@@ -360,6 +394,15 @@ input:focus {
   border-radius: 25px;
 }
 
+.home-month-picker {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  /* width: 120px; */
+  padding: 18px;
+  margin: auto 40px;
+}
+
 .statistic-spendings {
   width: 100vw-32px;
   font-size: 20px;
@@ -369,7 +412,7 @@ input:focus {
 th,
 td {
   text-align: left;
-  padding: 8px;
+  /* padding: 8px; */
 }
 
 .chart-container {
@@ -380,4 +423,17 @@ td {
 
 .chart-wrapper {
   padding: 0 20px;
+}
+
+.col1 {
+  width: 25%;
+  font-weight: 500;
+}
+
+.col2 {
+  width: 70%;
+}
+
+.col3 {
+  width: 5%;
 }
