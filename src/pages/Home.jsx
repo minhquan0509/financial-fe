@@ -59,7 +59,7 @@ function Home() {
               <td className="col1">Nhà</td>
 
               <td className="col2">
-                <PercentageBar value={0.05} />
+                <PercentageBar value={0.15} />
               </td>
               <td className="col3">
                 <img src="/warning.png" />
@@ -71,6 +71,12 @@ function Home() {
           <div>TỔNG CHI TIÊU</div>
           <div className="home-total-money">10000000 đ</div>
         </Container>
+        <div className="home-report">
+          <div className="home-report-label">Xem báo cáo tài chính</div>
+          <div className="statistic-button-month border-none">
+            <ArrowForwardIosIcon />
+          </div>
+        </div>
       </Container>
       <Footer />
     </>

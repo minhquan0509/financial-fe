@@ -15,7 +15,7 @@ const styles = {
     fontWeight: 500,
     position: "absolute",
     lineHeight: "24px",
-    // width: "100%",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
   },
