@@ -10,10 +10,12 @@ import "@fontsource/roboto/700.css";
 
 import "./css/style.css";
 import { BrowserRouter } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
+    <ToastContainer position="top-center" theme="colored" />
     <App />
   </BrowserRouter>
 );

@@ -465,3 +465,27 @@ td {
   background-color: #fd3c81e5;
   border-radius: 16px;
 }
+
+.category-add-name {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.category-add-input {
+  font-size: 22px;
+  border: 1px solid #fd3c81e5;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.category-list {
+  margin-top: 20px;
+  padding: 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+}

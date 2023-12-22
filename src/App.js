@@ -10,6 +10,7 @@ import Statistic from "./pages/Statistic";
 import { useEffect } from "react";
 import { getMessagingToken, onMessageListener } from "./firebase";
 import Categories from "./pages/Categories";
+import CategoriesAdd from "./pages/CategoriesAdd";
 function App() {
   useEffect(() => {
     getMessagingToken();
@@ -34,6 +35,7 @@ function App() {
         <Route path="/spendings-limit-add" element={<SpendingLimitAdd />} />
         <Route path="/statistics" element={<Statistic />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/category-add" element={<CategoriesAdd />} />
       </Routes>
       {/* <Footer /> */}
     </>

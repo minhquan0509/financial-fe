@@ -1,11 +1,4 @@
-import {
-  Button,
-  Container,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import DatePicker from "react-mobile-datepicker";
@@ -13,12 +6,13 @@ import { useEffect } from "react";
 import { dateConfig } from "../config/dateConfig";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { toast } from "react-toastify";
 
 function SpendingAdd() {
   const navigate = useNavigate();
@@ -27,7 +21,7 @@ function SpendingAdd() {
   const [money, setMoney] = useState(100000);
   const [note, setNote] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [error, setError] = useState({'category': "", 'note': ""})
+  const [error, setError] = useState({ category: "", note: "" });
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -67,7 +61,7 @@ function SpendingAdd() {
     e.preventDefault(); // Prevent the default form submission behavior
 
     if (!category) {
-      setError({category: "*category is required"})
+      setError({ category: "*category is required" });
     }
     // if (!note) {
     //   setError({note: "*note is required"})
@@ -78,10 +72,16 @@ function SpendingAdd() {
         .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
           money,
           note,
-          date: `${dateData.time.getFullYear()}/${dateData.time.getMonth()+1}/${dateData.time.getDate()}`,
+          date: `${dateData.time.getFullYear()}/${
+            dateData.time.getMonth() + 1
+          }/${dateData.time.getDate()}`,
           categoryId: category,
         })
-        .then(navigate("/spendings"));
+        .then((res) => navigate("/spendings"))
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          navigate("/spendings-limit-add");
+        });
     }
   };
 
@@ -102,53 +102,56 @@ function SpendingAdd() {
             placeholder="100.000 đ"
           />
           <div className="spending-add-form_wrapper">
-          <FormControl sx={{ minWidth: 350 }}>
-            <InputLabel required id="demo-simple-select-label">Danh mục</InputLabel>
-            <Select
-              value={category}
-              onChange={handleChangeCategory}
-              displayEmpty
-              label="Danh mục"
-            >
-              {categories.length
-                    ? categories.map((item) => (
-                        <MenuItem
-                          value={item.id}
-                        >{item.name}</MenuItem>
-                      ))
-                    : null}
-              
-            </Select>
-            <div className="error-message">{error.category}</div>
-          </FormControl>
-          <TextField
+            <FormControl sx={{ minWidth: 350 }}>
+              <InputLabel required id="demo-simple-select-label">
+                Danh mục
+              </InputLabel>
+              <Select
+                value={category}
+                onChange={handleChangeCategory}
+                displayEmpty
+                label="Danh mục"
+              >
+                {categories.length
+                  ? categories.map((item) => (
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                    ))
+                  : null}
+              </Select>
+              <div className="error-message">{error.category}</div>
+            </FormControl>
+            <TextField
               className="spending-add-form_text"
-              style={{ borderRadius: "20px !important", marginTop: '10px' }}
+              style={{ borderRadius: "20px !important", marginTop: "10px" }}
               placeholder="Mua áo"
               required
               onChange={(event) => setNote(event.target.value)}
             />
             <div className="error-message">{error.note}</div>
 
-          <button className="spending-add-form_date"
-               onClick={handleToggle}>{dateData.time.getDate()}/{(dateData.time.getMonth() + 1).toString().padStart(2, '0')}/{dateData.time.getFullYear()}<KeyboardArrowDownIcon/></button>
-          {showDatePicker && (
-            <DatePicker
-              showCaption={false}
-              showHeader={false}
-              value={dateData.time}
-              isOpen={true}
-              isPopup={false}
-              theme={"ios"}
-              onChange={handleSelect}
-              onSelect={handleSelect}
-              onCancel={handleCancel}
-              dateFormat={["DD", "MM", "YYYY"]}
-              confirmText=""
-              cancelText=""
-              dateConfig={dateConfig}
-            />
-          )}
+            <button className="spending-add-form_date" onClick={handleToggle}>
+              {dateData.time.getDate()}/
+              {(dateData.time.getMonth() + 1).toString().padStart(2, "0")}/
+              {dateData.time.getFullYear()}
+              <KeyboardArrowDownIcon />
+            </button>
+            {showDatePicker && (
+              <DatePicker
+                showCaption={false}
+                showHeader={false}
+                value={dateData.time}
+                isOpen={true}
+                isPopup={false}
+                theme={"ios"}
+                onChange={handleSelect}
+                onSelect={handleSelect}
+                onCancel={handleCancel}
+                dateFormat={["DD", "MM", "YYYY"]}
+                confirmText=""
+                cancelText=""
+                dateConfig={dateConfig}
+              />
+            )}
             <Button onClick={handleSubmit} className="spending-add-form_button">
               Thêm giao dịch
             </Button>
