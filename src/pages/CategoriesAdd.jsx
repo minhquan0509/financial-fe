@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,10 +11,7 @@ import Footer from "../components/Footer";
 
 function CategoriesAdd() {
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
   const today = new Date();
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -24,6 +21,7 @@ function CategoriesAdd() {
         setData(res.data.data.categories);
       });
   }, []);
+
   return (
     <>
       <Container className="spending">
@@ -38,26 +36,70 @@ function CategoriesAdd() {
           <input className="category-add-input" placeholder="" />
         </div>
         <div className="category-list">
-          Icon
-          {data.map((spending) => (
-            <div className="spending-detail-list">
-              <div className="spending-category">
-                <div className="spending-icon">
-                  {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
-                  <img
-                    src={
-                      `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
-                      spending.Icon.content
-                    }
-                    alt="icon"
-                  />
-                </div>
-                <div className="spending-info">
-                  <div className="spending-info-category">{spending.name}</div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="category-icon-label">Icon</div>
+          <Grid container rowSpacing={3}>
+            <Grid value={2} item xs={3}>
+              <img src="/icons/money.svg" alt="" />
+            </Grid>
+            <Grid value={2} item xs={3}>
+              <img src="/icons/2.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/3.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/4.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/1.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/2.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/3.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/4.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/1.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/2.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/3.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/4.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/1.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/2.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/3.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/4.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/1.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/2.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/3.png" alt="" />
+            </Grid>
+            <Grid item xs={3}>
+              <img src="/icons/4.png" alt="" />
+            </Grid>
+          </Grid>
+          <div className="category-add-btn">Thêm danh mục</div>
         </div>
       </Container>
       <Footer />

@@ -485,7 +485,30 @@ td {
 
 .category-list {
   margin-top: 20px;
-  padding: 0 20px;
+  padding-left: 20px;
   font-size: 22px;
   font-weight: 700;
+}
+
+.category-icon-label {
+  margin-bottom: 20px;
+}
+
+.category-add-btn {
+  font-weight: 500;
+  margin: 40px auto;
+  padding: 20px 30px;
+  color: #fff;
+  font-size: 22px;
+  background-color: #fd3c81e5;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.category-selected {
+  border: 2px solid #fd3c81e5;
+}
+
+.MuiGrid-item {
+  height: 90px;
 }
