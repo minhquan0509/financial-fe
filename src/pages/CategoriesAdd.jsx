@@ -8,18 +8,33 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { toast } from "react-toastify";
 
 function CategoriesAdd() {
   const navigate = useNavigate();
-  const today = new Date();
-  const [data, setData] = useState([]);
+  const [icons, setIcons] = useState([]);
+  const [cat_icon, setCatIcon] = useState("");
+  const [cat_name, setCatName] = useState("");
+
+  const handleSubmit = () => {
+    axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`, {
+      iconName: cat_icon,
+      categoryName: cat_name
+    })
+    .then((res) => navigate("/categories"))
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          navigate("/category-add");
+        });
+  }
+
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons`)
       .then((res) => {
-        setData(res.data.data.categories);
-      });
+        setIcons(res.data.data.icons)
+      })
   }, []);
 
   return (
@@ -33,73 +48,19 @@ function CategoriesAdd() {
         </div>
         <div className="category-add-name">
           Tên
-          <input className="category-add-input" placeholder="" />
+          <input value={cat_name} onChange={(event) => setCatName(event.target.value)} className="category-add-input" placeholder="" />
         </div>
         <div className="category-list">
           <div className="category-icon-label">Icon</div>
           <Grid container rowSpacing={3}>
-            <Grid value={2} item xs={3}>
-              <img src="/icons/money.svg" alt="" />
-            </Grid>
-            <Grid value={2} item xs={3}>
-              <img src="/icons/2.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/3.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/4.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/1.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/2.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/3.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/4.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/1.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/2.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/3.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/4.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/1.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/2.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/3.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/4.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/1.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/2.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/3.png" alt="" />
-            </Grid>
-            <Grid item xs={3}>
-              <img src="/icons/4.png" alt="" />
-            </Grid>
+            {icons.map((icon) => (
+              <Grid value={icon.name} item xs={3} className={icon.name === cat_icon ? "category-icon-selected" : "category-icon"}>
+                <img src={`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/${icon.content}`} alt={icon.name} 
+                onClick={() => setCatIcon(icon.name)}/>
+              </Grid>
+            ))}
           </Grid>
-          <div className="category-add-btn">Thêm danh mục</div>
+          <div className="category-add-btn" onClick={handleSubmit}>Thêm danh mục</div>
         </div>
       </Container>
       <Footer />

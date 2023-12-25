@@ -491,7 +491,24 @@ td {
 }
 
 .category-icon-label {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+}
+
+.category-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0 !important;
+  border-radius: 16px;
+}
+
+.category-icon-selected {
+  background-color: rgba(227, 226, 226, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0 !important;
+  border-radius: 16px;
 }
 
 .category-add-btn {
