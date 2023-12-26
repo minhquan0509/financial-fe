@@ -15,8 +15,7 @@ import { useEffect, useState } from "react";
 import { dateConfigNoDay } from "../config/dateConfig";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
@@ -46,7 +45,6 @@ function SpendingLimitAdd() {
     e.preventDefault(); // Prevent the default form submission behavior
     setShowDatePicker(!showDatePicker);
   };
-
 
   const handleCancel = () => {
     setDateData({ isOpen: false });
@@ -106,8 +104,11 @@ function SpendingLimitAdd() {
               style={{ borderRadius: "20px !important" }}
               placeholder="Mua áo"
             /> */}
-            <button className="spending-add-form_date"
-               onClick={handleToggle}>{(dateData.time.getMonth() + 1).toString().padStart(2, '0')}/{dateData.time.getFullYear()}<KeyboardArrowDownIcon/></button>
+            <button className="spending-add-form_date" onClick={handleToggle}>
+              {(dateData.time.getMonth() + 1).toString().padStart(2, "0")}/
+              {dateData.time.getFullYear()}
+              <KeyboardArrowDownIcon />
+            </button>
             {showDatePicker && (
               <DatePicker
                 showCaption={false}
@@ -124,7 +125,7 @@ function SpendingLimitAdd() {
                 cancelText=""
                 dateConfig={dateConfigNoDay}
               />
-          )}
+            )}
             <Button onClick={handleSubmit} className="spending-add-form_button">
               Thêm Hạn Mức
             </Button>

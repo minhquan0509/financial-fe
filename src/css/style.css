@@ -400,7 +400,7 @@ input:focus {
   font-weight: 500;
   /* width: 120px; */
   padding: 18px;
-  margin: auto 40px;
+  margin: auto 20px;
 }
 
 .statistic-spendings {
@@ -528,4 +528,13 @@ td {
 
 .MuiGrid-item {
   height: 90px;
+}
+
+.home-table {
+  width: 100%;
+  border-spacing: 0 8px;
+}
+
+.home-table-row {
+  margin-bottom: 6px;
 }

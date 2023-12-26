@@ -50,12 +50,12 @@ function Home() {
             <ArrowForwardIosIcon onClick={handleIncrementMonth} />
           </div>
         </div>
-        <table className="">
+        <table className="home-table">
           <thead></thead>
-          <tbody>
+          <thead>
             {dataArray.length &&
               dataArray.map((item) => (
-                <tr>
+                <tr className="home-table-row">
                   <td className="col1">{item.name}</td>
 
                   <td className="col2">
@@ -66,7 +66,7 @@ function Home() {
                   </td>
                 </tr>
               ))}
-          </tbody>
+          </thead>
         </table>
         <Container className="home-total-spendings">
           <div>TỔNG CHI TIÊU</div>

@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { toast } from "react-toastify";
-
+import { Modal, ModalDialog, ModalClose, Typography } from "@mui/joy";
 function SpendingAdd() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState("");
@@ -77,7 +77,13 @@ function SpendingAdd() {
           }/${dateData.time.getDate()}`,
           categoryId: category,
         })
-        .then((res) => navigate("/spendings"))
+        .then((res) => {
+          if (res.data.data.warning.length)
+            toast.warning(res.data.data.warning, {
+              autoClose: false,
+            });
+          navigate("/spendings");
+        })
         .catch((error) => {
           toast.error(error.response.data.message);
           navigate("/spendings-limit-add");
