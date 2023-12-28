@@ -65,10 +65,14 @@ function StatisticYear() {
   };
 
   const [chooseDate, setChooseDate] = useState(new Date());
+  const maxDate = new Date();
+
   const handleIncrementYear = () => {
     const newDate = new Date(chooseDate);
-    newDate.setFullYear(chooseDate.getFullYear() + 1);
-    setChooseDate(newDate);
+    if (newDate.toDateString() !== maxDate.toDateString()) {
+      newDate.setFullYear(chooseDate.getFullYear() + 1);
+      setChooseDate(newDate);
+    }
   };
   const handleDecrementYear = () => {
     const newDate = new Date(chooseDate);

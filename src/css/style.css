@@ -384,19 +384,19 @@ input:focus {
   border-radius: 50%;
   padding: 6px;
   color: #fd3c81e5;
-  height: 40px;
-  width: 40px;
+  height: 36px;
+  width: 36px;
 }
 
 .statistic-month {
   color: #fd3c81e5;
   text-align: center;
   background-color: #fd3c8126;
-  width: 120px;
-  padding: 18px;
+  width: 200px;
+  padding: 16px;
   border: 1px solid #fd3c81e5;
-  margin: auto 40px;
-  border-radius: 25px;
+  margin: auto 16px;
+  border-radius: 50px;
 }
 
 .home-month-picker {

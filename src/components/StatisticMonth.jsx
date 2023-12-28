@@ -66,10 +66,13 @@ function StatisticMonth() {
   };
 
   const [chooseDate, setChooseDate] = useState(new Date());
+  const maxDate = new Date();
   const handleIncrementMonth = () => {
     const newDate = new Date(chooseDate);
-    newDate.setMonth(chooseDate.getMonth() + 1);
-    setChooseDate(newDate);
+    if (newDate.toDateString() !== maxDate.toDateString()) {
+      newDate.setMonth(chooseDate.getMonth() + 1);
+      setChooseDate(newDate);
+    }
   };
   const handleDecrementMonth = () => {
     const newDate = new Date(chooseDate);
