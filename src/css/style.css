@@ -220,11 +220,16 @@ body {
   padding: 0 !important;
 }
 
+.spending-add-money-input {
+  color: white;
+  font-size: 40px;
+}
+
 .spending-add-money {
   border: none;
   background-color: transparent;
   font-size: 40px;
-  max-width: 200px;
+  max-width: 160px;
   color: #ffe3ed;
   margin-left: 20px;
 }

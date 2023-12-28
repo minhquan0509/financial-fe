@@ -99,14 +99,16 @@ function SpendingAdd() {
       </Container>
       <Container className="spending-add-body">
         <form>
-          <input
-            className="spending-add-money"
-            type="number"
-            name=""
-            id=""
-            onChange={(event) => setMoney(event.target.value)}
-            placeholder="100.000 đ"
-          />
+          <div className="spending-add-money-input">
+            <input
+              className="spending-add-money"
+              type="number"
+              name=""
+              id=""
+              onChange={(event) => setMoney(event.target.value)}
+              placeholder="100.000"
+            /> đ
+          </div>
           <div className="spending-add-form_wrapper">
             <FormControl sx={{ minWidth: 350 }}>
               <InputLabel required id="demo-simple-select-label">

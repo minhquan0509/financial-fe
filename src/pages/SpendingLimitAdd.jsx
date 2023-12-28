@@ -74,14 +74,16 @@ function SpendingLimitAdd() {
       </Container>
       <Container className="spending-add-body">
         <form>
-          <input
-            className="spending-add-money"
-            type="number"
-            name=""
-            id=""
-            placeholder="100.000 đ"
-            onChange={(event) => setMoney(event.target.value)}
-          />
+          <div className="spending-add-money-input">
+            <input
+              className="spending-add-money"
+              type="number"
+              name=""
+              id=""
+              placeholder="100.000"
+              onChange={(event) => setMoney(event.target.value)}
+            />  đ
+          </div>
           <div className="spending-add-form_wrapper">
             {/* <label className="spending-add-form_label">Chọn danh mục</label> */}
             <FormControl fullWidth>
