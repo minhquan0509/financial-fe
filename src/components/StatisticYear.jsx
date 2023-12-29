@@ -26,6 +26,7 @@ ChartJS.register(
 );
 
 export const options = {
+  maintainAspectRatio: false,
   responsive: true,
   plugins: {
     legend: {
@@ -94,13 +95,13 @@ function StatisticYear() {
 
   const getSpendings = () => {
     if (dataArray.length) {
-      return dataArray.map((item, index) => item.totalSpendings).reverse();
+      return dataArray.map((item, index) => item.totalSpendings);
     }
     return [];
   };
   const getDays = () => {
     if (dataArray.length) {
-      return dataArray.map((item) => `Tháng ${item.month}`).reverse();
+      return dataArray.map((item) => `Tháng ${item.month}`);
     }
     return [];
   };
@@ -130,7 +131,7 @@ function StatisticYear() {
       <Container className="chart-container">
         <div
           className="chart-wrapper"
-          // style={{ width: `${dataArray.length * 80}px` }}
+          style={{ width: `${dataArray.length * 64}px` }}
         >
           <Bar onClick={onClick} options={options} data={data} ref={chartRef} />
         </div>

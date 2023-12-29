@@ -21,7 +21,7 @@ function SpendingAdd() {
   const [money, setMoney] = useState(100000);
   const [note, setNote] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [error, setError] = useState({ category: "", note: "" });
+  const [error, setError] = useState({ money: "", category: "", note: "" });
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -63,11 +63,11 @@ function SpendingAdd() {
     if (!category) {
       setError({ category: "*category is required" });
     }
-    // if (!note) {
-    //   setError({note: "*note is required"})
-    // }
+    if (money < 0) {
+      setError({ money: "*Số tiền phải lớn hơn 0!" });
+    }
 
-    if (category && money) {
+    if (category && money >= 0) {
       axios
         .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
           money,
@@ -105,10 +105,13 @@ function SpendingAdd() {
               type="number"
               name=""
               id=""
+              min={0}
               onChange={(event) => setMoney(event.target.value)}
-              placeholder="100.000"
-            /> đ
+              placeholder="100000"
+            />{" "}
+            đ
           </div>
+          <div className="error-message">{error.money}</div>
           <div className="spending-add-form_wrapper">
             <FormControl sx={{ minWidth: 350 }}>
               <InputLabel required id="demo-simple-select-label">

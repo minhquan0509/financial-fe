@@ -114,6 +114,16 @@ body {
   align-items: center;
 }
 
+.date-picker-wrapper {
+  position: relative;
+}
+
+.down-icon {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+}
+
 .spending-date-picker {
   color: black;
   position: relative;
@@ -141,7 +151,7 @@ body {
 }
 .spending-search-bar {
   width: 240px;
-  padding: 10px;
+  padding: 10px 24px;
   border: none;
   background-color: #fd3c81e5;
   color: #ffffff;
@@ -421,7 +431,7 @@ td {
 }
 
 .chart-container {
-  padding: 0 30px;
+  padding: 0 !important;
   background-color: #fff;
   overflow: auto;
   width: 80% !important;

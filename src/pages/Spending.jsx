@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Search } from "@mui/icons-material";
 import axios from "axios";
 import Footer from "../components/Footer";
+import DownIcon from "../icons/DownIcon";
 
 function Spending() {
   const [startDate, setStartDate] = useState();
@@ -26,7 +27,7 @@ function Spending() {
     <>
       <Container className="spending">
         <div className="spending-filter">
-          <div>
+          <div className="date-picker-wrapper">
             <DatePicker
               className="spending-date-picker"
               placeholderText="Từ ngày"
@@ -35,6 +36,9 @@ function Spending() {
               startDate={startDate}
               maxDate={today}
             />
+            <DownIcon className="down-icon" />
+          </div>
+          <div className="date-picker-wrapper">
             <DatePicker
               className="spending-date-picker"
               placeholderText="Đến ngày"
@@ -45,6 +49,7 @@ function Spending() {
               minDate={startDate}
               maxDate={today}
             />
+            <DownIcon className="down-icon" />
           </div>
           <FilterListIcon />
         </div>

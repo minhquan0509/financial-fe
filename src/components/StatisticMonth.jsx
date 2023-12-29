@@ -114,8 +114,8 @@ function StatisticMonth() {
       {
         data: getSpendings(),
         backgroundColor: "#74C0FF",
-        barPercentage: 0.9,
-        categoryPercentage: 1,
+        barPercentage: 0.1,
+        categoryPercentage: 0.1,
         borderRadius: 5,
       },
     ],
@@ -136,7 +136,7 @@ function StatisticMonth() {
       <Container className="chart-container">
         <div
           className="chart-wrapper"
-          style={{ width: `${dataArray.length * 80}px` }}
+          style={{ width: `${dataArray.length * 64}px` }}
         >
           <Bar onClick={onClick} options={options} data={data} ref={chartRef} />
         </div>

@@ -23,6 +23,7 @@ function SpendingLimitAdd() {
   const [categories, setCategories] = useState("");
   const [money, setMoney] = useState(100000);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState({ money: "", category: "" });
 
   const [dateData, setDateData] = useState({
     time: new Date(),
@@ -58,13 +59,24 @@ function SpendingLimitAdd() {
     setCategory(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
-      limitMoney: money,
-      date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
-      categoryId: category,
-    });
-    navigate("/spendings-limit");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!category) {
+      setError({ category: "*category is required" });
+    }
+    if (money < 0) {
+      setError({ money: "Số tiền phải lớn hơn 0!" });
+    }
+
+    if (category && money >= 0) {
+      await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
+        limitMoney: money,
+        date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
+        categoryId: category,
+      });
+      navigate("/spendings-limit");
+    }
   };
   return (
     <div className="home container">
@@ -82,8 +94,10 @@ function SpendingLimitAdd() {
               id=""
               placeholder="100.000"
               onChange={(event) => setMoney(event.target.value)}
-            />  đ
+            />{" "}
+            đ
           </div>
+          <div className="error-message">{error.money}</div>
           <div className="spending-add-form_wrapper">
             {/* <label className="spending-add-form_label">Chọn danh mục</label> */}
             <FormControl fullWidth>
@@ -100,6 +114,7 @@ function SpendingLimitAdd() {
                     ))
                   : null}
               </Select>
+              <div className="error-message">{error.category}</div>
             </FormControl>
             {/* <TextField
               className="spending-add-form_text"
