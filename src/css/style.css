@@ -424,10 +424,7 @@ td {
   padding: 0 30px;
   background-color: #fff;
   overflow: auto;
-}
-
-.chart-wrapper {
-  padding: 0 20px;
+  width: 90% !important;
 }
 
 .col1 {
