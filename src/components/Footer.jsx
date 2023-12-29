@@ -2,7 +2,7 @@ import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Add from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
+import { Link, useLocation  } from "react-router-dom";
 import HomeIcon from "../icons/HomeIcon";
 import SpendingIcon from "../icons/SpendingIcon";
 import LimitIcon from "../icons/Limit";
@@ -11,6 +11,7 @@ import Home from "@mui/icons-material/Home";
 
 export default function Footer() {
   const [value, setValue] = React.useState("home");
+  const location = useLocation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -19,11 +20,10 @@ export default function Footer() {
   return (
     <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
       <Link className="footer-nav" to="/">
-        <BottomNavigationAction value="home" icon={<HomeIcon />} />
-        {/* <BottomNavigationAction value="home" icon={<Icon><img src="./Home.svg"/></Icon>} /> */}
+        <BottomNavigationAction value="home" icon={<HomeIcon color={location.pathname === '/' ? '#fd3c81e5' : '#C6C6C6'} />} />
       </Link>
       <Link className="footer-nav" to="/spendings">
-        <BottomNavigationAction value="favorites" icon={<SpendingIcon />} />
+        <BottomNavigationAction value="favorites" icon={<SpendingIcon color={location.pathname === '/spendings' ? '#fd3c81e5' : '#C6C6C6'} />} />
       </Link>
       <Link className="footer-nav" to="/spendings-add">
         <BottomNavigationAction
@@ -33,10 +33,10 @@ export default function Footer() {
         />
       </Link>
       <Link className="footer-nav" to="/statistics">
-        <BottomNavigationAction value="useage" icon={<LimitIcon />} />
+        <BottomNavigationAction value="useage" icon={<LimitIcon color={location.pathname === '/statistics' ? '#fd3c81e5' : '#C6C6C6'} />} />
       </Link>
       <Link className="footer-nav" to="/">
-        <BottomNavigationAction value="menu" icon={<MenuIcon />} />
+        <BottomNavigationAction value="menu" icon={<MenuIcon color={location.pathname === '/menu' ? '#fd3c81e5' : '#C6C6C6'} />} />
       </Link>
     </BottomNavigation>
   );
