@@ -8,6 +8,8 @@ import axios from "axios";
 function Home() {
   const [chooseDate, setChooseDate] = useState(new Date());
   const [dataArray, setDataArray] = useState([]);
+  const maxDate = new Date();
+
   useEffect(() => {
     axios
       .get(
@@ -24,8 +26,10 @@ function Home() {
 
   const handleIncrementMonth = () => {
     const newDate = new Date(chooseDate);
-    newDate.setMonth(chooseDate.getMonth() + 1);
-    setChooseDate(newDate);
+    if (newDate.toDateString() !== maxDate.toDateString()) {
+      newDate.setMonth(chooseDate.getMonth() + 1);
+      setChooseDate(newDate);
+    }
   };
   const handleDecrementMonth = () => {
     const newDate = new Date(chooseDate);
