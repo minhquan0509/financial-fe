@@ -54,6 +54,7 @@ body {
     rgba(248, 237, 216, 0) 64.58%
   );
   padding: 10px;
+  margin-bottom: 56px;
 }
 
 .border-none {
@@ -181,6 +182,11 @@ body {
   border-radius: 15px;
   padding: 15px 10px;
   margin: 5px;
+  transition: all 0.1s ease;
+}
+.spending-detail-list:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 5px rgb(0, 0, 0, 0.1);
 }
 
 .spending-icon {
@@ -193,8 +199,20 @@ body {
 .spending-category {
   display: flex;
   align-items: center;
+  flex: 1;
 }
-
+.spending-info{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.spending-info-note{
+  align-self: stretch;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .spending-info-category {
   font-weight: 500;
   font-size: large;

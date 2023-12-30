@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 // import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Search } from "@mui/icons-material";
@@ -14,6 +14,7 @@ function Spending() {
   const [endDate, setEndDate] = useState();
   const today = new Date();
   const [data, setData] = useState([]);
+  const messRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -22,10 +23,25 @@ function Spending() {
         setData(res.data.data.spendings);
       });
   }, []);
+  const handleClickSpending = (spending = "") => {
+    setTimeout(() => {}, 300);
+  };
 
   return (
     <>
       <Container className="spending">
+        <div
+          style={{
+            position: "fixed",
+            bottom: 60,
+            right: 0,
+            width: "100%",
+            padding: 10,
+            textAlign: "center",
+          }}
+        >
+          <span>dada</span>
+        </div>
         <div className="spending-filter">
           <div className="date-picker-wrapper">
             <DatePicker
@@ -55,14 +71,22 @@ function Spending() {
         </div>
         <div className="spending-search">
           <Search style={{ color: "#fd3c81e5", marginRight: "10px" }} />
-          <input className="spending-search-bar" placeholder="Tìm kiếm" />
+          <input
+            className="spending-search-bar"
+            placeholder="Tìm kiếm"
+          />
         </div>
         <div className="spending-list">
           {data.map((data) => (
             <div>
               <div className="spending-date">{data.date}</div>
               {data.spendings.map((spending) => (
-                <div className="spending-detail-list">
+                <div
+                  onClick={() => {
+                    alert(spending.note);
+                  }}
+                  className="spending-detail-list"
+                >
                   <div className="spending-category">
                     <div className="spending-icon">
                       {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
@@ -74,7 +98,10 @@ function Spending() {
                         alt="icon"
                       />
                     </div>
-                    <div className="spending-info">
+                    <div
+                      title={spending.note}
+                      className="spending-info"
+                    >
                       <div className="spending-info-category">
                         {spending.Category.name}
                       </div>
