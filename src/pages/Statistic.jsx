@@ -1,6 +1,5 @@
-import { Container } from "@mui/material";
-import Footer from "../components/Footer";
 import { useState } from "react";
+import Footer from "../components/Footer";
 import StatisticMonth from "../components/StatisticMonth";
 import StatisticYear from "../components/StatisticYear";
 
@@ -9,10 +8,8 @@ function Statistic() {
   return (
     <>
       <div className="statistic-container">
-        <Container>
-          <h2 className="statistic-title">Thống kê chi tiêu</h2>
-        </Container>
-        <div className="statistic-button-wrapper">
+        <h2 className="statistic-title">Thống kê chi tiêu</h2>
+        <div className="statistic-button-wrapper statistic-tab-button">
           <div
             onClick={() => setTab(1)}
             className={`statistic-button button-monthly ${

@@ -1,14 +1,11 @@
-import { Container, Grid } from "@mui/material";
-import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link } from "react-router-dom";
+import { Container, Grid } from "@mui/material";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 
 function CategoriesAdd() {
   const navigate = useNavigate();

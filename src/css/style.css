@@ -26,6 +26,11 @@ li {
   font-size: 100%;
   font-family: "Inter", sans-serif;
   vertical-align: baseline;
+  text-decoration: none;
+}
+:root {
+  --primary-color: #fd3c81e5;
+  --title-size: 25px;
 }
 
 ol,
@@ -201,12 +206,12 @@ body {
   align-items: center;
   flex: 1;
 }
-.spending-info{
+.spending-info {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
-.spending-info-note{
+.spending-info-note {
   align-self: stretch;
   max-width: 150px;
   white-space: nowrap;
@@ -241,6 +246,7 @@ body {
 
 .spending-add-title {
   margin-left: 40px;
+  font-size: var(--title-size);
 }
 
 .spending-add-body {
@@ -280,10 +286,6 @@ input:focus {
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
   color: #fd3c81e5 !important;
-}
-
-.MuiSvgIcon-root {
-  /* color: #fd3c81e5 !important; */
 }
 
 .spending-add-form_label {
@@ -374,21 +376,26 @@ input:focus {
   font-size: 20px;
   font-weight: 700;
   text-align: center;
-  margin-top: 20px;
+  padding-top: 30px;
+  font-size: var(--title-size);
 }
 
 .statistic-button-wrapper {
-  margin-top: 40px;
+  margin: 20px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-weight: 500;
-  margin-bottom: 40px;
+}
+.statistic-tab-button {
+  margin: 40px 0 20px 0;
 }
 
 .statistic-button {
   padding: 16px;
   color: #fd3c81e5;
   border: 1px solid #fd3c81e5;
+  transition: all 0.5s ease;
 }
 
 .button-monthly {
@@ -412,8 +419,13 @@ input:focus {
   border-radius: 50%;
   padding: 6px;
   color: #fd3c81e5;
-  height: 36px;
-  width: 36px;
+  height: 30px;
+  width: 30px;
+}
+.statistic-button-month:hover {
+  background-color: #fd3c81e5;
+  opacity: 0.5;
+  color: #fff;
 }
 
 .statistic-month {
@@ -437,22 +449,25 @@ input:focus {
 }
 
 .statistic-spendings {
-  width: 100vw-32px;
+  width: calc(100vw - 70px);
   font-size: 20px;
-  margin: 0 auto;
+  margin: 20px auto;
+}
+.statistic-spendings td {
+  padding: 4px;
 }
 
 th,
 td {
   text-align: left;
-  /* padding: 8px; */
+  /* padding: 4px; */
 }
 
 .chart-container {
-  padding: 0 !important;
+  padding: 10px 5px !important;
   background-color: #fff;
   overflow: auto;
-  width: 80% !important;
+  width: 90% !important;
 }
 
 .col1 {
@@ -482,7 +497,6 @@ td {
   align-items: center;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 5px;
 }
 
 .category-label {

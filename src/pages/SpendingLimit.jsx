@@ -1,18 +1,17 @@
-import { Container } from "@mui/material";
-import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link } from "react-router-dom";
+import { Container } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
 function SpendingLimit() {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  // const [endDate, setEndDate] = useState();
   const today = new Date();
 
   const [data, setData] = useState([]);

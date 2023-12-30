@@ -5,6 +5,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import SpendingItem from "../components/SpendingItem";
 function Home() {
   const [chooseDate, setChooseDate] = useState(new Date());
   const [dataArray, setDataArray] = useState([]);
@@ -17,7 +19,7 @@ function Home() {
           process.env.REACT_APP_API_ENDPOINT_PRODUCT
         }/spendings/ratios?year=${chooseDate.getFullYear()}&month=${
           chooseDate.getMonth() + 1
-        }`
+        }`,
       )
       .then((res) => {
         setDataArray(res.data.data.ratioSpendingsInMonth);
@@ -36,18 +38,24 @@ function Home() {
     newDate.setMonth(chooseDate.getMonth() - 1);
     setChooseDate(newDate);
   };
-
+  const totalUsedMoney = dataArray.reduce(
+    (accumulator, item) => accumulator + item.totalUsedMoney,
+    0,
+  );
   return (
     <>
       <Container className="container home-container">
-        <div className="statistic-button-month home-logo">
-          <img src="/home-icon.png" />
+        <div className="aspect-square w-8 border-[1px] border-[#fd3c81e5] border-solid p-1 bg-white grid place-items-center rounded-full">
+          <img
+            src="/home-icon.png"
+            alt="home-icon"
+          />
         </div>
-        <div className="statistic-button-wrapper statistic-button-month-wrapper">
+        <div className="flex justify-center items-center my-5">
           <div className="statistic-button-month border-none">
             <ArrowBackIosIcon onClick={handleDecrementMonth} />
           </div>
-          <div className="home-month-picker border-none">
+          <div className="font-medium text-xl w-48 text-center">
             {`Tháng ${chooseDate.getMonth() + 1}, ${chooseDate.getFullYear()}`}
           </div>
           <div className="statistic-button-month border-none">
@@ -55,61 +63,64 @@ function Home() {
           </div>
         </div>
         <table className="home-table">
-          <thead></thead>
           <thead>
-            {dataArray.length &&
+            {dataArray.length ? (
               dataArray.map((item) => (
-                <tr className="home-table-row">
-                  <td className="col1">{item.name}</td>
-
-                  <td className="col2">
+                <tr
+                  key={item.category_id}
+                  className="home-table-row"
+                >
+                  <td className="font-medium">{item.name}</td>
+                  <td className="w-8/12">
                     <PercentageBar value={item.percentage / 100} />
                   </td>
-                  <td className="col3">
-                    {item.percentage > 100 && <img src="/warning.png" />}
+                  <td className="w-1/12">
+                    {item.percentage > 100 && (
+                      <img
+                        src="/warning.png"
+                        alt="warning-icon"
+                      />
+                    )}
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                Không có dữ liệu chi tiêu
+              </div>
+            )}
           </thead>
         </table>
         <Container className="home-total-spendings">
-          <div>TỔNG CHI TIÊU</div>
-          <div className="home-total-money">
-            {dataArray.length &&
-              dataArray.reduce(
-                (accumulator, item) => accumulator + item.totalUsedMoney,
-                0
-              )}{" "}
-            đ
+          <div className="mb-3 font-medium">TỔNG CHI TIÊU</div>
+          <div className="home-total-money font-medium">
+            {totalUsedMoney.toLocaleString()} đ
           </div>
         </Container>
-        <div className="home-report">
+        <Link
+          to="/statistics"
+          className="home-report rounded-lg"
+        >
           <div className="home-report-label">Xem báo cáo tài chính</div>
           <div className="statistic-button-month border-none">
             <ArrowForwardIosIcon />
           </div>
+        </Link>
+        <div
+          style={{
+            marginTop: "15px",
+          }}
+        >
+          {dataArray.map((spending) => (
+            <SpendingItem
+              key={spending.category_id}
+              name={spending.name}
+              note={spending.name}
+              icon={spending.icon.content}
+              money={spending.totalUsedMoney}
+            />
+          ))}
         </div>
-        {dataArray.map((spending) => (
-          <div className="spending-detail-list">
-            <div className="spending-category">
-              <div className="spending-icon">
-                {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
-                <img
-                  src={
-                    `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
-                    spending.icon.content
-                  }
-                  alt="icon"
-                />
-              </div>
-              <div className="spending-info">
-                <div className="spending-info-category">{spending.name}</div>
-                <div className="spending-info-note">{spending.name}</div>
-              </div>
-            </div>
-            <div className="price">-{spending.totalUsedMoney} đ</div>
-          </div>
-        ))}
       </Container>
       <Footer />
     </>

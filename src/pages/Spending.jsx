@@ -1,30 +1,38 @@
 import { Container } from "@mui/material";
 // import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { useState, useEffect, useRef } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { Search } from "@mui/icons-material";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import Footer from "../components/Footer";
-import DownIcon from "../icons/DownIcon";
+import SpendingItem from "../components/SpendingItem";
+import DropDownIcon from "../icons/DropDownIcon";
+import FilterIcon from "../icons/FilterIcon";
 
 function Spending() {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const today = new Date();
   const [data, setData] = useState([]);
-  const messRef = useRef(null);
+  const [mess, setMess] = useState({ content: "", show: false });
+  const [loadStatus, setLoadStatus] = useState("loading");
 
   useEffect(() => {
+    setLoadStatus("loading");
     axios
       .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`)
       .then((res) => {
         setData(res.data.data.spendings);
+        setLoadStatus("success");
       });
   }, []);
-  const handleClickSpending = (spending = "") => {
-    setTimeout(() => {}, 300);
+  const handleClickSpending = (note = "") => {
+    if (!note) return;
+    const mess = {
+      content: note,
+      show: true,
+    };
+    setMess(mess);
+    setTimeout(() => {
+      setMess({ ...mess, show: false });
+    }, 500);
   };
 
   return (
@@ -33,87 +41,77 @@ function Spending() {
         <div
           style={{
             position: "fixed",
-            bottom: 60,
+            top: 100,
             right: 0,
             width: "100%",
-            padding: 10,
             textAlign: "center",
           }}
         >
-          <span>dada</span>
+          <span
+            style={{
+              padding: "12px 10px",
+              backgroundColor: "#ffffff",
+              border: ".5px solid #00000044",
+              borderRadius: 10,
+              width: 200,
+              display: "inline-block",
+              boxShadow: "0 1px 5px #00000044",
+              transition: "all .3s",
+              opacity: mess.show ? 1 : 0,
+            }}
+          >
+            {mess.content}
+          </span>
         </div>
-        <div className="spending-filter">
-          <div className="date-picker-wrapper">
-            <DatePicker
-              className="spending-date-picker"
-              placeholderText="Từ ngày"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              startDate={startDate}
-              maxDate={today}
-            />
-            <DownIcon className="down-icon" />
+        <div className="mt-3 flex justify-between items-center">
+          <div className="flex gap-5">
+            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center">
+              <DropDownIcon
+                color="#fd3c81e5"
+                size={16}
+              />
+              <span>Từ ngày</span>
+            </div>
+            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center">
+              <DropDownIcon
+                color="#fd3c81e5"
+                size={16}
+              />
+              <span>Đến ngày</span>
+            </div>
           </div>
-          <div className="date-picker-wrapper">
-            <DatePicker
-              className="spending-date-picker"
-              placeholderText="Đến ngày"
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              endDate={endDate}
-              startDate={startDate}
-              minDate={startDate}
-              maxDate={today}
-            />
-            <DownIcon className="down-icon" />
+          <div className="p-1 border-[1px] border-slate-200 border-solid rounded-lg flex items-center justify-center">
+            <FilterIcon size={30} />
           </div>
-          <FilterListIcon />
         </div>
-        <div className="spending-search">
+        <label className="spending-search">
           <Search style={{ color: "#fd3c81e5", marginRight: "10px" }} />
           <input
-            className="spending-search-bar"
+            className="w-[240px] h-5 py-3 px-6 bg-[#FD3C8177] rounded-full outline-none border-none text-base placeholder:text-white shadow-md"
             placeholder="Tìm kiếm"
           />
-        </div>
-        <div className="spending-list">
-          {data.map((data) => (
-            <div>
-              <div className="spending-date">{data.date}</div>
-              {data.spendings.map((spending) => (
-                <div
-                  onClick={() => {
-                    alert(spending.note);
-                  }}
-                  className="spending-detail-list"
-                >
-                  <div className="spending-category">
-                    <div className="spending-icon">
-                      {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
-                      <img
-                        src={
-                          `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
-                          spending.Category.Icon.content
-                        }
-                        alt="icon"
-                      />
-                    </div>
-                    <div
-                      title={spending.note}
-                      className="spending-info"
-                    >
-                      <div className="spending-info-category">
-                        {spending.Category.name}
-                      </div>
-                      <div className="spending-info-note">{spending.note}</div>
-                    </div>
-                  </div>
-                  <div className="price">-{spending.money} đ</div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        </label>
+        {loadStatus === "loading" ? (
+          <div className="h-80 grid place-items-center font-medium text-xl">Đang tải dữ liệu</div>
+        ) : (
+          <div className="spending-list">
+            {data.map((data) => (
+              <div key={data.date}>
+                <div className="spending-date">{data.date}</div>
+                {data.spendings.map((spending) => (
+                  <SpendingItem
+                    key={spending.id}
+                    name={spending.Category.name}
+                    icon={spending.Category.Icon.content}
+                    note={spending.note}
+                    money={spending.money}
+                    onClick={() => handleClickSpending(spending.note)}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </Container>
       <Footer />
     </>

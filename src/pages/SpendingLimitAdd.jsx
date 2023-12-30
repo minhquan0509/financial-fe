@@ -1,21 +1,19 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Button,
   Container,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DatePicker from "react-mobile-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-mobile-datepicker";
 // import dateCon from "../config/dateConfig";
-import { useEffect, useState } from "react";
-import { dateConfigNoDay } from "../config/dateConfig";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { dateConfigNoDay } from "../config/dateConfig";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
@@ -37,10 +35,6 @@ function SpendingLimitAdd() {
         setCategories(res.data.data.categories);
       });
   }, []);
-
-  const handleClick = () => {
-    setDateData({ isOpen: true });
-  };
 
   const handleToggle = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -121,7 +115,10 @@ function SpendingLimitAdd() {
               style={{ borderRadius: "20px !important" }}
               placeholder="Mua áo"
             /> */}
-            <button className="spending-add-form_date" onClick={handleToggle}>
+            <button
+              className="spending-add-form_date"
+              onClick={handleToggle}
+            >
               {(dateData.time.getMonth() + 1).toString().padStart(2, "0")}/
               {dateData.time.getFullYear()}
               <KeyboardArrowDownIcon />
@@ -143,7 +140,10 @@ function SpendingLimitAdd() {
                 dateConfig={dateConfigNoDay}
               />
             )}
-            <Button onClick={handleSubmit} className="spending-add-form_button">
+            <Button
+              onClick={handleSubmit}
+              className="spending-add-form_button"
+            >
               Thêm Hạn Mức
             </Button>
           </div>
