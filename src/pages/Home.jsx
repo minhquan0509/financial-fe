@@ -11,9 +11,11 @@ import LoadingIcon from "../icons/LoadingIcon";
 function Home() {
   const [chooseDate, setChooseDate] = useState(new Date());
   const [dataArray, setDataArray] = useState([]);
+  const [loading, setLoading] = useState(true);
   const maxDate = new Date();
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         `${
@@ -24,6 +26,7 @@ function Home() {
       )
       .then((res) => {
         setDataArray(res.data.data.ratioSpendingsInMonth);
+        setLoading(false);
       });
   }, [chooseDate]);
 
@@ -114,15 +117,21 @@ function Home() {
             marginTop: "15px",
           }}
         >
-          {dataArray.map((spending) => (
-            <SpendingItem
-              key={spending.category_id}
-              name={spending.name}
-              note={spending.name}
-              icon={spending.icon.content}
-              money={spending.totalUsedMoney}
-            />
-          ))}
+          {loading ? (
+            <div className="h-44 grid place-items-center">
+              <LoadingIcon size={100} />
+            </div>
+          ) : (
+            dataArray.map((spending) => (
+              <SpendingItem
+                key={spending.category_id}
+                name={spending.name}
+                note={spending.name}
+                icon={spending.icon.content}
+                money={spending.totalUsedMoney}
+              />
+            ))
+          )}
         </div>
       </Container>
       <Footer />
