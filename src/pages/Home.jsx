@@ -90,16 +90,22 @@ function Home() {
                   </td>
                 </tr>
               ))
+            ) : loading ? (
+              <div className="h-32 grid place-items-center">
+                <LoadingIcon size={100} />
+              </div>
             ) : (
-              <div style={{ textAlign: "center" }}>
-                Không có dữ liệu chi tiêu
+              <div className="h-32 grid place-items-center">
+                <span className="font-medium text-lg">
+                  Không có dữ liệu chi tiêu
+                </span>
               </div>
             )}
           </thead>
         </table>
         <Container className="home-total-spendings">
-          <div className="mb-3 font-medium">TỔNG CHI TIÊU</div>
-          <div className="home-total-money font-medium">
+          <div className="mb-3 font-semibold">TỔNG CHI TIÊU</div>
+          <div className="home-total-money font-semibold">
             {totalUsedMoney.toLocaleString()} đ
           </div>
         </Container>

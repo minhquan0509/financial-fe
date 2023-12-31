@@ -1,5 +1,4 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,6 +15,12 @@ function CategoriesAdd() {
   const [loading, setLoading] = useState(true);
 
   const handleSubmit = () => {
+    if (cat_name.trim() === "") {
+      setCatName("");
+      return toast.error("Tên danh mục không được để trống", {
+        autoClose: 1000,
+      });
+    }
     setLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`, {
