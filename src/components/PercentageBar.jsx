@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 
 const styles = {
@@ -40,27 +40,39 @@ const getColor = (value) => {
 
 function PercentageBar({ value }) {
   const valueInPercent = value * 100;
+  const [width, setWidth] = React.useState(0);
+  useEffect(() => {
+    const sto = setTimeout(() => {
+      setWidth(valueInPercent);
+    }, 350);
+    return () => {
+      clearTimeout(sto);
+    };
+  }, [valueInPercent]);
 
   return (
     <div style={styles.root}>
       <div
+        className="transition-all duration-1000 ease-in-out"
         style={{
           ...styles.value,
-          width: `${valueInPercent > 100 ? 100 : valueInPercent}%`,
+          width: `${width > 100 ? 100 : width}%`,
           backgroundColor: getColor(valueInPercent),
           borderRadius: "30px",
         }}
       ></div>
-      <span style={{
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%, -50%)",
-        color: "#ffffff",
-        fontWeight: 600,
-        lineHeight: "24px",
-        textShadow: "0 1px 1px #000000ff",
-      }}>{`${valueInPercent.toLocaleString()} %`}</span>
+      <span
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          color: "#ffffff",
+          fontWeight: 600,
+          lineHeight: "24px",
+          textShadow: "0 1px 1px #000000ff",
+        }}
+      >{`${valueInPercent.toLocaleString()} %`}</span>
       <div
         className={clsx(styles.bar, {
           [styles.low]: valueInPercent < 30,

@@ -184,6 +184,9 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
+  align-items: stretch;
+  justify-content: space-evenly;
+  align-self: stretch;
 }
 .spending-info-note {
   align-self: stretch;
@@ -195,7 +198,6 @@ body {
 .spending-info-category {
   font-weight: 500;
   font-size: large;
-  margin-bottom: 10px;
 }
 
 .price {
