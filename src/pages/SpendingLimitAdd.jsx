@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dateConfigNoDay } from "../config/dateConfig";
 import SubScreenHeader from "../components/SubScreenHeader";
+import { toast } from "react-toastify";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
@@ -56,24 +57,24 @@ function SpendingLimitAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!category) {
-      setError({ category: "*category is required" });
+      toast.error("Bạn chưa chọn danh mục");
+      return;
     }
     if (money <= 0) {
-      setError({ money: "Số tiền phải lớn hơn 0!" });
+      toast.error("Số tiền phải lớn hơn 0");
+      return;
     }
-
-    if (category && money > 0) {
-      await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
+    await axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
         limitMoney: money,
         date: `${dateData.time.getFullYear()}-${
           dateData.time.getMonth() + 1
         }-01`,
         categoryId: category,
-      });
-      navigate("/spendings-limit");
-    }
+      })
+      .then(() => navigate("/spendings-limit"))
+      .catch(() => toast.error("Bạn đã thêm hạn mức cho tháng này rồi"));
   };
   return (
     <div className="home container">
@@ -94,7 +95,6 @@ function SpendingLimitAdd() {
             />{" "}
             đ
           </div>
-          <div className="error-message">{error.money}</div>
           <div className="spending-add-form_wrapper">
             {/* <label className="spending-add-form_label">Chọn danh mục</label> */}
             <FormControl fullWidth>
@@ -113,7 +113,10 @@ function SpendingLimitAdd() {
               </Select>
               <div className="error-message">{error.category}</div>
             </FormControl>
-            <button className="spending-add-form_date" onClick={handleToggle}>
+            <button
+              className="spending-add-form_date"
+              onClick={handleToggle}
+            >
               {(dateData.time.getMonth() + 1).toString().padStart(2, "0")}/
               {dateData.time.getFullYear()}
               <KeyboardArrowDownIcon />

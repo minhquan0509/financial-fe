@@ -18,7 +18,7 @@ export default function Footer() {
 
   return (
     <BottomNavigation
-      sx={{ width: 500 }}
+      className="w-full pb-1"
       value={value}
       onChange={handleChange}
     >

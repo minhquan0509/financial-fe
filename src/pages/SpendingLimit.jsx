@@ -7,16 +7,17 @@ import { Link } from "react-router-dom";
 import SubScreenHeader from "../components/SubScreenHeader";
 import NextIcon from "../icons/NextIcon";
 import LoadingIcon from "../icons/LoadingIcon";
+/**
+ * @typedef {{id:number,limit_money:number;category_id:number;Category:{id:number;name:string;icon_id:number;Icon:{id:number;content:string;name:string}}}} Category
+ * @typedef {{date: string, categories: Category[]}} SpendingLimt
+ */
 
 function SpendingLimit() {
-  // const navigate = useNavigate();
-  // const [startDate, setStartDate] = useState();
-  // const [endDate, setEndDate] = useState();
-  // const today = new Date();
   const [loading, setLoading] = useState(true);
-
+  /**
+   * @type {[SpendingLimt[], React.Dispatch<SpendingLimt[]>]}
+   */
   const [data, setData] = useState([]);
-
   useEffect(() => {
     setLoading(true);
     axios
@@ -44,14 +45,6 @@ function SpendingLimit() {
               size={12}
             />
           </div>
-          {/* <DatePicker
-              dateFormat="MM/yyyy"
-              className="limit-date-picker"
-              selected={today}
-              onChange={(date) => setStartDate(date)}
-              startDate={startDate}
-              maxDate={today}
-            /> */}
         </div>
         <Link
           to="/spendings-limit-add"
@@ -66,38 +59,57 @@ function SpendingLimit() {
         </div>
       ) : (
         <div className="spending-list">
-          {data.map((spending) => (
-            <div
-              key={spending.id}
-              className="spending-detail-list"
-            >
-              <div className="spending-category">
-                <div className="spending-icon">
-                  <img
-                    className="w-16 h-16"
-                    src={
-                      `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
-                      spending.Category.Icon.content
-                    }
-                    alt="icon"
-                  />
-                </div>
-                <div className="spending-info">
-                  <div className="spending-info-category">
-                    {spending.Category.name}
+          {data.map(({ categories, date }) => {
+            const split = date.split("/");
+            split.splice(1, 0, "2")
+            const nDate = new Date(split.join("/"));
+            const fomatedDate = `${(nDate.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}/${nDate.getFullYear()}`;
+            return (
+              <div key={date}>
+                <div className="spending-date">{fomatedDate}</div>
+                {categories.map((spending) => (
+                  <div
+                    key={spending.id}
+                    className="spending-detail-list"
+                  >
+                    <div className="spending-category">
+                      <div className="spending-icon">
+                        <img
+                          className="w-14 h-14"
+                          src={
+                            `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
+                            spending.Category.Icon.content
+                          }
+                          alt="icon"
+                        />
+                      </div>
+                      <div className="spending-info">
+                        <div className="spending-info-category">
+                          {spending.Category.name}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end justify-evenly self-stretch">
+                      <div className="price">
+                        {Number(spending.limit_money).toLocaleString()} đ
+                      </div>
+                      <div
+                        style={{
+                          marginTop: "5px",
+                          color: "#91919F",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {fomatedDate}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-              <div>
-                <div className="price">{spending.limit_money} đ</div>
-                <div
-                  style={{ marginTop: "5px", color: "gray", fontWeight: "600" }}
-                >
-                  {spending.date}
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </Container>
