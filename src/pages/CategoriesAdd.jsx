@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Footer from "../components/Footer";
+import SubScreenHeader from "../components/SubScreenHeader";
 
 function CategoriesAdd() {
   const navigate = useNavigate();
@@ -14,54 +14,72 @@ function CategoriesAdd() {
   const [cat_name, setCatName] = useState("");
 
   const handleSubmit = () => {
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`, {
-      iconName: cat_icon,
-      categoryName: cat_name
-    })
-    .then((res) => navigate("/categories"))
-        .catch((error) => {
-          toast.error(error.response.data.message);
-          navigate("/category-add");
-        });
-  }
-
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/categories`, {
+        iconName: cat_icon,
+        categoryName: cat_name,
+      })
+      .then((res) => navigate("/categories"))
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        navigate("/category-add");
+      });
+  };
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons`)
       .then((res) => {
-        setIcons(res.data.data.icons)
-      })
+        setIcons(res.data.data.icons);
+      });
   }, []);
 
   return (
-    <>
-      <Container className="spending">
-        <div>
-          <Container className="spending-add-header spending-limit-header">
-            <ArrowBackIcon onClick={() => navigate(-1)} />
-            <h2 className="spending-add-title">Thêm danh mục mới</h2>
-          </Container>
+    <Container className="spending">
+      <SubScreenHeader title="Thêm danh mục mới" />
+      <label className="flex items-center justify-between mt-7 gap-3">
+        <span className="category-icon-label">Tên</span>
+        <input
+          value={cat_name}
+          onChange={(event) => setCatName(event.target.value)}
+          className="w-8 flex-1 font-medium text-xl border-[1px] border-[#FD3C81] border-solid rounded-2xl py-3 px-3"
+          placeholder="Tên danh mục"
+        />
+      </label>
+      <div className="mt-7">
+        <span className="category-icon-label">Icon</span>
+        <div className="grid grid-cols-4 my-3 mx-[-12px]">
+          {icons.map((icon) => {
+            return (
+              <div
+                key={icon.id}
+                className="grid place-items-center p-3 rounded-lg"
+              >
+                <img
+                  src={`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/${icon.content}`}
+                  alt={icon.name}
+                  onClick={() => setCatIcon(icon.name)}
+                  className="w-16 h-16 transition-all border-solid border-[1px] rounded-[20px]"
+                  style={{
+                    filter:
+                      icon.name === cat_icon
+                        ? "drop-shadow(0 0 2px #FD3C81)"
+                        : null,
+                    borderColor: icon.name === cat_icon ? "#FD3C81" : "transparent",
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
-        <div className="category-add-name">
-          Tên
-          <input value={cat_name} onChange={(event) => setCatName(event.target.value)} className="category-add-input" placeholder="" />
+        <div
+          className="category-add-btn"
+          onClick={handleSubmit}
+        >
+          Thêm danh mục
         </div>
-        <div className="category-list">
-          <div className="category-icon-label">Icon</div>
-          <Grid container rowSpacing={3}>
-            {icons.map((icon) => (
-              <Grid value={icon.name} item xs={3} className={icon.name === cat_icon ? "category-icon-selected" : "category-icon"}>
-                <img src={`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/${icon.content}`} alt={icon.name} 
-                onClick={() => setCatIcon(icon.name)}/>
-              </Grid>
-            ))}
-          </Grid>
-          <div className="category-add-btn" onClick={handleSubmit}>Thêm danh mục</div>
-        </div>
-      </Container>
-      <Footer />
-    </>
+      </div>
+    </Container>
   );
 }
 

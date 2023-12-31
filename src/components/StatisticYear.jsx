@@ -14,6 +14,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import EmptyIcon from "../icons/Empty";
+import LoadingIcon from "../icons/LoadingIcon";
 
 ChartJS.register(
   CategoryScale,
@@ -143,7 +144,9 @@ function StatisticYear() {
             fontSize: 20,
           }}
         >
-          <center className="font-medium text-xl">Đang tải dữ liệu</center>
+          <center className="font-medium text-xl">
+            <LoadingIcon size={100} />
+          </center>
         </div>
       ) : isEmpty ? (
         <div
@@ -165,7 +168,7 @@ function StatisticYear() {
         <>
           <Container className="chart-container">
             <div
-              className="chart-wrapper"
+              className="chart-wrapper h-60"
               style={{ width: `${dataArray.length * 64}px` }}
             >
               <Bar
@@ -181,7 +184,10 @@ function StatisticYear() {
               <thead>
                 <tr>
                   <th>Tổng cộng:</th>
-                  <th>{dataArray[detail].totalSpendings} đ</th>
+                  <th style={{ textAlign: "end" }}>
+                    {Number(dataArray[detail].totalSpendings).toLocaleString()}{" "}
+                    đ
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -189,7 +195,9 @@ function StatisticYear() {
                   ? dataArray[detail].categories.map((item) => (
                       <tr key={item.category_id}>
                         <td>{item.Category.name}:</td>
-                        <td>{item.totalSpendings} đ</td>
+                        <td style={{ textAlign: "end" }}>
+                          {Number(item.totalSpendings).toLocaleString()} đ
+                        </td>
                       </tr>
                     ))
                   : null}

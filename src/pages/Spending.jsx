@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import SpendingItem from "../components/SpendingItem";
 import DropDownIcon from "../icons/DropDownIcon";
 import FilterIcon from "../icons/FilterIcon";
+import ScreenHeader from "../components/ScreenHeader";
+import LoadingIcon from "../icons/LoadingIcon";
 
 function Spending() {
   const [data, setData] = useState([]);
@@ -38,6 +40,7 @@ function Spending() {
   return (
     <>
       <Container className="spending">
+        <ScreenHeader title="Lịch sử chi tiêu" />
         <div
           style={{
             position: "fixed",
@@ -63,16 +66,16 @@ function Spending() {
             {mess.content}
           </span>
         </div>
-        <div className="mt-3 flex justify-between items-center">
+        <div className="flex justify-between items-center">
           <div className="flex gap-5">
-            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center">
+            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center shadow-sm transition-all active:opacity-50">
               <DropDownIcon
                 color="#fd3c81e5"
                 size={16}
               />
               <span>Từ ngày</span>
             </div>
-            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center">
+            <div className="border-[1px] border-slate-200 border-solid rounded-full p-3 flex gap-3 items-center shadow-sm transition-all active:opacity-50">
               <DropDownIcon
                 color="#fd3c81e5"
                 size={16}
@@ -80,19 +83,23 @@ function Spending() {
               <span>Đến ngày</span>
             </div>
           </div>
-          <div className="p-1 border-[1px] border-slate-200 border-solid rounded-lg flex items-center justify-center">
+          <div className="p-1 border-[1px] border-slate-200 border-solid rounded-lg flex items-center justify-center shadow-sm transition-all active:opacity-50">
             <FilterIcon size={30} />
           </div>
         </div>
-        <label className="spending-search">
-          <Search style={{ color: "#fd3c81e5", marginRight: "10px" }} />
+        <label className="spending-search gap-1">
+          <div className="grid place-items-center border-[1px] border-slate-200 border-solid rounded-full p-2 shadow-md transition-all active:bg-[#fd3c8028]">
+            <Search style={{ color: "#fd3c81e5" }} />
+          </div>
           <input
             className="w-[240px] h-5 py-3 px-6 bg-[#FD3C8177] rounded-full outline-none border-none text-base placeholder:text-white shadow-md"
             placeholder="Tìm kiếm"
           />
         </label>
         {loadStatus === "loading" ? (
-          <div className="h-80 grid place-items-center font-medium text-xl">Đang tải dữ liệu</div>
+          <div className="h-80 grid place-items-center font-medium text-xl">
+            <LoadingIcon size={100} />
+          </div>
         ) : (
           <div className="spending-list">
             {data.map((data) => (

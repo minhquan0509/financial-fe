@@ -2,14 +2,16 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import StatisticMonth from "../components/StatisticMonth";
 import StatisticYear from "../components/StatisticYear";
+import ScreenHeader from "../components/ScreenHeader";
 
 function Statistic() {
   const [tab, setTab] = useState(1);
   return (
     <>
       <div className="statistic-container">
-        <h2 className="statistic-title">Thống kê chi tiêu</h2>
-        <div className="statistic-button-wrapper statistic-tab-button">
+        <ScreenHeader title="Thống kê chi tiêu" />
+        {/* <h2 className="statistic-title">Thống kê chi tiêu</h2> */}
+        <div className="statistic-button-wrapper">
           <div
             onClick={() => setTab(1)}
             className={`statistic-button button-monthly ${

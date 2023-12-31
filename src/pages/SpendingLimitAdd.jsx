@@ -14,6 +14,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dateConfigNoDay } from "../config/dateConfig";
+import SubScreenHeader from "../components/SubScreenHeader";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
@@ -66,7 +67,9 @@ function SpendingLimitAdd() {
     if (category && money >= 0) {
       await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
         limitMoney: money,
-        date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
+        date: `${dateData.time.getFullYear()}-${
+          dateData.time.getMonth() + 1
+        }-01`,
         categoryId: category,
       });
       navigate("/spendings-limit");
@@ -74,10 +77,10 @@ function SpendingLimitAdd() {
   };
   return (
     <div className="home container">
-      <Container className="spending-add-header">
-        <ArrowBackIcon onClick={() => navigate(-1)} />
-        <h2 className="spending-add-title">Thêm hạn mức chi tiêu</h2>
-      </Container>
+      <SubScreenHeader
+        type="pink"
+        title="Thêm hạn mức chi tiêu"
+      />
       <Container className="spending-add-body">
         <form>
           <div className="spending-add-money-input">

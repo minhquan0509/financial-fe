@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SpendingItem from "../components/SpendingItem";
+import LoadingIcon from "../icons/LoadingIcon";
 function Home() {
   const [chooseDate, setChooseDate] = useState(new Date());
   const [dataArray, setDataArray] = useState([]);
@@ -56,7 +57,9 @@ function Home() {
             <ArrowBackIosIcon onClick={handleDecrementMonth} />
           </div>
           <div className="font-medium text-xl w-48 text-center">
-            {`Tháng ${chooseDate.getMonth() + 1}, ${chooseDate.getFullYear()}`}
+            {`Tháng ${(chooseDate.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}, ${chooseDate.getFullYear()}`}
           </div>
           <div className="statistic-button-month border-none">
             <ArrowForwardIosIcon onClick={handleIncrementMonth} />

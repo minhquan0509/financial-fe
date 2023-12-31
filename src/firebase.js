@@ -33,7 +33,7 @@ export const getMessagingToken = async () => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging.onMessage((payload) => {
+    messaging?.onMessage((payload) => {
       resolve(payload);
     });
   });

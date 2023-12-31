@@ -14,6 +14,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import EmptyIcon from "../icons/Empty";
+import LoadingIcon from "../icons/LoadingIcon";
 
 ChartJS.register(
   CategoryScale,
@@ -104,9 +105,12 @@ function StatisticMonth() {
   };
   const getDays = () => {
     if (dataArray.length) {
-      return dataArray.map(
-        (item) => `${item.date.slice(-2)}/${item.date.slice(5, 7)}`,
-      );
+      return dataArray.map((item) => {
+        const date = new Date(item.date);
+        const dateN = date.getDate().toString().padStart(2, "0");
+        const monthN = (date.getMonth() + 1).toString().padStart(2, "0");
+        return `${dateN}/${monthN}`;
+      });
     }
     return [];
   };
@@ -129,7 +133,8 @@ function StatisticMonth() {
           <ArrowBackIosIcon onClick={handleDecrementMonth} />
         </div>
         <div className="statistic-month">
-          {chooseDate.getMonth() + 1}/{chooseDate.getFullYear()}
+          {(chooseDate.getMonth() + 1).toString().padStart(2, "0")}/
+          {chooseDate.getFullYear()}
         </div>
         <div className="statistic-button-month button-month-back">
           <ArrowForwardIosIcon onClick={handleIncrementMonth} />
@@ -147,13 +152,15 @@ function StatisticMonth() {
             fontSize: 20,
           }}
         >
-          <center className="font-medium text-xl">Đang tải dữ liệu</center>
+          <center className="font-medium text-xl">
+            <LoadingIcon size={100} />
+          </center>
         </div>
       ) : (
         <>
           <Container className="chart-container">
             <div
-              className="chart-wrapper"
+              className="chart-wrapper h-60"
               style={{ width: `${dataArray.length * 64}px` }}
             >
               <Bar
@@ -171,7 +178,7 @@ function StatisticMonth() {
                   <tr>
                     <th>Tổng cộng:</th>
                     <th style={{ textAlign: "end" }}>
-                      {dataArray[detail].totalAmount} đ
+                      {Number(dataArray[detail].totalAmount).toLocaleString()} đ
                     </th>
                   </tr>
                 ) : (
@@ -187,7 +194,7 @@ function StatisticMonth() {
                       <tr key={item.category_id}>
                         <td>{item.Category.name}:</td>
                         <td style={{ textAlign: "end" }}>
-                          {item.totalSpendings} đ
+                          {Number(item.totalSpendings).toLocaleString()} đ
                         </td>
                       </tr>
                     ))

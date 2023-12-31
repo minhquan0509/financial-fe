@@ -1,19 +1,18 @@
 import AddIcon from "@mui/icons-material/Add";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Container } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link, useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+import SubScreenHeader from "../components/SubScreenHeader";
 
 function Categories() {
-  const navigate = useNavigate();
   // const [startDate, setStartDate] = useState();
   // const [endDate, setEndDate] = useState();
   // const today = new Date();
 
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     axios
@@ -21,48 +20,48 @@ function Categories() {
       .then((res) => {
         setData(res.data.data.categories);
       });
+    setShow(true);
   }, []);
   return (
-    <>
-      <Container className="spending">
-        <div>
-          <Container className="spending-add-header spending-limit-header">
-            <ArrowBackIcon onClick={() => navigate(-1)} />
-            <h2 className="spending-add-title">Danh mục của tôi</h2>
-          </Container>
+    <Container
+      className="spending transition-all"
+      style={{
+        opacity: show ? 1 : 0,
+      }}
+    >
+      <SubScreenHeader title="Danh mục của tôi" />
+      <div className="spending-search">
+        <div className="limit-search">
+          <div className="category-label">Danh mục chi tiêu</div>
         </div>
-        <div className="spending-search">
-          <div className="limit-search">
-            <div className="category-label">Danh mục chi tiêu</div>
-          </div>
-          <Link to="/category-add">
-            <AddIcon className="spending-limit-add_icon" />
-          </Link>
-        </div>
-        <div className="spending-list">
-          {data.map((spending) => (
-            <div className="spending-detail-list">
-              <div className="spending-category">
-                <div className="spending-icon">
-                  {/* <BusinessCenterIcon style={{ color: 'red' }} /> */}
-                  <img
-                    src={
-                      `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
-                      spending.Icon.content
-                    }
-                    alt="icon"
-                  />
-                </div>
-                <div className="spending-info">
-                  <div className="spending-info-category">{spending.name}</div>
-                </div>
+        <Link to="/category-add">
+          <AddIcon className="spending-limit-add_icon" />
+        </Link>
+      </div>
+      <div className="spending-list">
+        {data.map((spending) => (
+          <div
+            key={spending.id}
+            className="spending-detail-list"
+          >
+            <div className="spending-category gap-2">
+              <div className="spending-icon">
+                <img
+                  src={
+                    `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
+                    spending.Icon.content
+                  }
+                  alt="icon"
+                />
               </div>
+              <span className="flex-1 w-[240px] font-semibold text-lg truncate">
+                {spending.name}
+              </span>
             </div>
-          ))}
-        </div>
-      </Container>
-      <Footer />
-    </>
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 }
 
