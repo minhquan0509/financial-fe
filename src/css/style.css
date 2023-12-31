@@ -1,31 +1,16 @@
-html,
-body,
-div,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-strong,
-sub,
-sup,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li {
+* {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   font-family: "Inter", sans-serif;
   vertical-align: baseline;
+  text-decoration: none;
+  outline: none;
+}
+:root {
+  --primary-color: #fd3c81e5;
+  --title-size: 25px;
 }
 
 ol,
@@ -54,6 +39,7 @@ body {
     rgba(248, 237, 216, 0) 64.58%
   );
   padding: 10px;
+  margin-bottom: 56px;
 }
 
 .border-none {
@@ -147,20 +133,14 @@ body {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .spending-search-bar {
   width: 240px;
-  padding: 10px 24px;
   border: none;
-  background-color: #fd3c81e5;
-  color: #ffffff;
+  background-color: #fd3c8177;
+  color: #000000;
   border-radius: 50px;
-  height: 20px;
-}
-
-.spending-search-bar::placeholder {
-  color: #fff;
 }
 
 .spending-list {
@@ -181,6 +161,11 @@ body {
   border-radius: 15px;
   padding: 15px 10px;
   margin: 5px;
+  transition: all 0.1s ease;
+}
+.spending-detail-list:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 5px rgb(0, 0, 0, 0.1);
 }
 
 .spending-icon {
@@ -193,8 +178,20 @@ body {
 .spending-category {
   display: flex;
   align-items: center;
+  flex: 1;
 }
-
+.spending-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.spending-info-note {
+  align-self: stretch;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .spending-info-category {
   font-weight: 500;
   font-size: large;
@@ -223,6 +220,7 @@ body {
 
 .spending-add-title {
   margin-left: 40px;
+  font-size: var(--title-size);
 }
 
 .spending-add-body {
@@ -248,10 +246,6 @@ body {
   color: #ffe3ed;
 }
 
-input:focus {
-  border: none;
-}
-
 .spending-add-form_wrapper {
   margin-top: 60px;
   border-radius: 50px;
@@ -262,10 +256,6 @@ input:focus {
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
   color: #fd3c81e5 !important;
-}
-
-.MuiSvgIcon-root {
-  /* color: #fd3c81e5 !important; */
 }
 
 .spending-add-form_label {
@@ -325,7 +315,7 @@ input:focus {
 
 .spending-limit-add_icon {
   color: #fd3c81e5;
-  margin-left: 20px;
+  padding: 10px;
   font-size: 2rem !important;
   stroke: #fd3c81e5;
   stroke-width: 2;
@@ -356,21 +346,23 @@ input:focus {
   font-size: 20px;
   font-weight: 700;
   text-align: center;
-  margin-top: 20px;
+  padding-top: 30px;
+  font-size: var(--title-size);
 }
 
 .statistic-button-wrapper {
-  margin-top: 40px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-weight: 500;
-  margin-bottom: 40px;
 }
 
 .statistic-button {
   padding: 16px;
   color: #fd3c81e5;
   border: 1px solid #fd3c81e5;
+  transition: all 0.5s ease;
 }
 
 .button-monthly {
@@ -394,8 +386,14 @@ input:focus {
   border-radius: 50%;
   padding: 6px;
   color: #fd3c81e5;
-  height: 36px;
-  width: 36px;
+  height: 30px;
+  width: 30px;
+  transition: all 0.3s ease;
+}
+.statistic-button-month:active {
+  background-color: #fd3c81e5;
+  opacity: 0.5;
+  color: #fff;
 }
 
 .statistic-month {
@@ -419,22 +417,26 @@ input:focus {
 }
 
 .statistic-spendings {
-  width: 100vw-32px;
+  width: calc(100vw - 70px);
   font-size: 20px;
-  margin: 0 auto;
+  margin: 20px auto;
+}
+.statistic-spendings td,
+.statistic-spendings th {
+  padding: 4px;
 }
 
 th,
 td {
   text-align: left;
-  /* padding: 8px; */
+  /* padding: 4px; */
 }
 
 .chart-container {
-  padding: 0 !important;
+  padding: 10px 5px !important;
   background-color: #fff;
   overflow: auto;
-  width: 80% !important;
+  width: 90% !important;
 }
 
 .col1 {
@@ -464,23 +466,19 @@ td {
   align-items: center;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 5px;
 }
 
 .category-label {
   font-size: 20px;
   font-weight: 500;
   color: #fff;
-  padding: 16px;
+  padding: 15px 20px;
   margin-left: 52px;
-  /* width: 200px; */
   background-color: #fd3c81e5;
-  border-radius: 16px;
+  border-radius: 20px;
 }
 
 .category-add-name {
-  font-size: 22px;
-  font-weight: 700;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -503,7 +501,8 @@ td {
 }
 
 .category-icon-label {
-  margin-bottom: 32px;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .category-icon {
@@ -526,14 +525,20 @@ td {
 .category-add-btn {
   font-weight: 500;
   margin: 40px auto;
-  padding: 20px 30px;
+  padding: 18px 25px;
   color: #fff;
   font-size: 22px;
   background-color: #fd3c81e5;
-  border-radius: 10px;
+  border-radius: 15px;
   width: fit-content;
+  transition: all 0.3s ease;
 }
-
+.category-add-btn:active {
+  background-color: #fd3c81e5;
+  opacity: 0.5;
+  color: #fff;
+  box-shadow: 0 1px 5px rgba(82, 82, 82, 0.589);
+}
 .category-selected {
   border: 2px solid #fd3c81e5;
 }

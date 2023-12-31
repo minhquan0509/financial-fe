@@ -1,21 +1,20 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Button,
   Container,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DatePicker from "react-mobile-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-mobile-datepicker";
 // import dateCon from "../config/dateConfig";
-import { useEffect, useState } from "react";
-import { dateConfigNoDay } from "../config/dateConfig";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { dateConfigNoDay } from "../config/dateConfig";
+import SubScreenHeader from "../components/SubScreenHeader";
 
 function SpendingLimitAdd() {
   const navigate = useNavigate();
@@ -37,10 +36,6 @@ function SpendingLimitAdd() {
         setCategories(res.data.data.categories);
       });
   }, []);
-
-  const handleClick = () => {
-    setDateData({ isOpen: true });
-  };
 
   const handleToggle = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -72,7 +67,9 @@ function SpendingLimitAdd() {
     if (category && money > 0) {
       await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
         limitMoney: money,
-        date: `${dateData.time.getFullYear()}-${dateData.time.getMonth()}-01`,
+        date: `${dateData.time.getFullYear()}-${
+          dateData.time.getMonth() + 1
+        }-01`,
         categoryId: category,
       });
       navigate("/spendings-limit");
@@ -80,10 +77,10 @@ function SpendingLimitAdd() {
   };
   return (
     <div className="home container">
-      <Container className="spending-add-header">
-        <ArrowBackIcon onClick={() => navigate(-1)} />
-        <h2 className="spending-add-title">Thêm hạn mức chi tiêu</h2>
-      </Container>
+      <SubScreenHeader
+        type="pink"
+        title="Thêm hạn mức chi tiêu"
+      />
       <Container className="spending-add-body">
         <form>
           <div className="spending-add-money-input">
@@ -138,7 +135,10 @@ function SpendingLimitAdd() {
                 dateConfig={dateConfigNoDay}
               />
             )}
-            <Button onClick={handleSubmit} className="spending-add-form_button">
+            <Button
+              onClick={handleSubmit}
+              className="spending-add-form_button"
+            >
               Thêm Hạn Mức
             </Button>
           </div>

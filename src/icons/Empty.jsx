@@ -1,0 +1,161 @@
+const EmptyIcon = ({ size = 24 }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width={size}
+      height={size}
+      x="0"
+      y="0"
+      viewBox="0 0 48 48"
+      xmlspace="preserve"
+      style={{
+        filter: "drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.25))",
+      }}
+    >
+      <g>
+        <linearGradient
+          id="a"
+          x1="5.5"
+          x2="5.5"
+          y1="46.16"
+          y2="14"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop
+            offset="0"
+            stopColor="#a8a8a8"
+          ></stop>
+          <stop
+            offset="1"
+            stopColor="#fdfdfd"
+          ></stop>
+        </linearGradient>
+        <linearGradient
+          xlinkHref="#a"
+          id="c"
+          x1="42.5"
+          x2="42.5"
+          y1="46.16"
+        ></linearGradient>
+        <linearGradient
+          xlinkHref="#a"
+          id="d"
+          x1="24"
+          x2="24"
+          y1="47"
+          y2="31"
+        ></linearGradient>
+        <linearGradient
+          xlinkHref="#a"
+          id="e"
+          x1="24"
+          x2="24"
+          y1="27"
+        ></linearGradient>
+        <linearGradient
+          id="b"
+          x1="24"
+          x2="24"
+          y1="21.38"
+          y2="1"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop
+            offset="0"
+            stop-color="#d3e6f5"
+          ></stop>
+          <stop
+            offset="1"
+            stop-color="#f0f7fc"
+          ></stop>
+        </linearGradient>
+        <linearGradient
+          xlinkHref="#b"
+          id="f"
+          x1="4"
+          x2="12"
+          y1="41"
+          y2="41"
+        ></linearGradient>
+        <path
+          fill="#b8b8b8"
+          d="M46.62 46.16A2 2 0 0 1 45 47H3a2 2 0 0 1-1.62-.84C9.28 28.59 7.64 32.24 10 27h28c2.54 5.65.66 1.48 8.62 19.16z"
+          opacity="1"
+          data-original="#ffffff"
+          class=""
+        ></path>
+        <path
+          fill="url(#a)"
+          d="M10 14v13c-2.54 5.65-.66 1.48-8.62 19.16A1.9 1.9 0 0 1 1 45V31z"
+          opacity="1"
+          data-original="url(#a)"
+          class=""
+        ></path>
+        <path
+          fill="url(#a)"
+          d="M47 31v14a1.9 1.9 0 0 1-.38 1.16C38.72 28.59 40.36 32.24 38 27V14z"
+          opacity="1"
+          data-original="url(#a)"
+          class=""
+        ></path>
+        <path
+          fill="url(#a)"
+          d="M47 31v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V31h17.09a1 1 0 0 1 1 .85 5 5 0 0 0 8.47 2.69 5.06 5.06 0 0 0 1.39-2.69 1 1 0 0 1 1-.85z"
+          opacity="1"
+          data-original="url(#a)"
+          class=""
+        ></path>
+        <path
+          fill="url(#a)"
+          d="M10 14h28v13H10z"
+          opacity="1"
+          data-original="url(#a)"
+          class=""
+        ></path>
+        <path
+          fill="url(#b)"
+          d="M33 10a9 9 0 1 0-10.57 8.85l1.12 2.26a.51.51 0 0 0 .9 0l1.12-2.26A9 9 0 0 0 33 10z"
+          opacity="1"
+          data-original="url(#b)"
+          class=""
+        ></path>
+        <path
+          fill="#ff74a5"
+          d="m25.41 10 2.3-2.29a1 1 0 1 0-1.42-1.42L24 8.59l-2.29-2.3a1 1 0 0 0-1.42 1.42l2.3 2.29-2.3 2.29a1 1 0 0 0 1.42 1.42l2.29-2.3 2.29 2.3a1 1 0 0 0 1.42-1.42z"
+          opacity="1"
+          data-original="#ffb369"
+          class=""
+        ></path>
+        <rect
+          width="8"
+          height="6"
+          x="4"
+          y="38"
+          fill="url(#f)"
+          rx="1"
+          opacity="1"
+          data-original="url(#f)"
+        ></rect>
+        <path
+          fill="#ff74a5"
+          d="M9 42H7a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2z"
+          opacity="1"
+          data-original="#ffb369"
+          class=""
+        ></path>
+        <g fill="#ffffff">
+          <path
+            d="M17 44h-2a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2zM19 40h-4a1 1 0 0 1 0-2h4a1 1 0 0 1 0 2z"
+            fill="#ffffff"
+            opacity="1"
+            data-original="#4795ea"
+            class=""
+          ></path>
+        </g>
+      </g>
+    </svg>
+  );
+};
+export default EmptyIcon;

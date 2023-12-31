@@ -1,20 +1,20 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { BarChart } from "@mui/x-charts/BarChart";
 import { Container } from "@mui/material";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
+import { useEffect, useRef, useState } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
-import { useRef } from "react";
+import EmptyIcon from "../icons/Empty";
+import LoadingIcon from "../icons/LoadingIcon";
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +22,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export const options = {
@@ -66,6 +66,7 @@ function StatisticMonth() {
   };
 
   const [chooseDate, setChooseDate] = useState(new Date());
+  const [loadStatus, setLoadStatus] = useState("loading");
   const maxDate = new Date();
   const handleIncrementMonth = () => {
     const newDate = new Date(chooseDate);
@@ -81,16 +82,18 @@ function StatisticMonth() {
   };
   const [dataArray, setDataArray] = useState([]);
   useEffect(() => {
+    setLoadStatus("loading");
     axios
       .get(
         `${
           process.env.REACT_APP_API_ENDPOINT_PRODUCT
         }/spendings/statistics?year=${chooseDate.getFullYear()}&month=${
           chooseDate.getMonth() + 1
-        }`
+        }`,
       )
       .then((res) => {
         setDataArray(res.data.data.spendings);
+        setLoadStatus("success");
       });
   }, [chooseDate]);
 
@@ -102,9 +105,12 @@ function StatisticMonth() {
   };
   const getDays = () => {
     if (dataArray.length) {
-      return dataArray.map(
-        (item) => `${item.date.slice(-2)}/${item.date.slice(5, 7)}`
-      );
+      return dataArray.map((item) => {
+        const date = new Date(item.date);
+        const dateN = date.getDate().toString().padStart(2, "0");
+        const monthN = (date.getMonth() + 1).toString().padStart(2, "0");
+        return `${dateN}/${monthN}`;
+      });
     }
     return [];
   };
@@ -127,44 +133,77 @@ function StatisticMonth() {
           <ArrowBackIosIcon onClick={handleDecrementMonth} />
         </div>
         <div className="statistic-month">
-          {chooseDate.getMonth() + 1}/{chooseDate.getFullYear()}
+          {(chooseDate.getMonth() + 1).toString().padStart(2, "0")}/
+          {chooseDate.getFullYear()}
         </div>
         <div className="statistic-button-month button-month-back">
           <ArrowForwardIosIcon onClick={handleIncrementMonth} />
         </div>
       </div>
-      <Container className="chart-container">
+      {loadStatus === "loading" ? (
         <div
-          className="chart-wrapper"
-          style={{ width: `${dataArray.length * 64}px` }}
+          style={{
+            textAlign: "center",
+            height: 500,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: "normal",
+            fontSize: 20,
+          }}
         >
-          <Bar onClick={onClick} options={options} data={data} ref={chartRef} />
+          <center className="font-medium text-xl">
+            <LoadingIcon size={100} />
+          </center>
         </div>
-      </Container>
-      <Container>
-        <table className="statistic-spendings">
-          <thead>
-            {dataArray.length && dataArray[detail] ? (
-              <tr>
-                <th>Tổng cộng:</th>
-                <th>{dataArray[detail].totalAmount} đ</th>
-              </tr>
-            ) : (
-              "Không có dữ liệu"
-            )}
-          </thead>
-          <tbody>
-            {dataArray.length
-              ? dataArray[detail].categories.map((item) => (
+      ) : (
+        <>
+          <Container className="chart-container">
+            <div
+              className="chart-wrapper h-60"
+              style={{ width: `${dataArray.length * 64}px` }}
+            >
+              <Bar
+                onClick={onClick}
+                options={options}
+                data={data}
+                ref={chartRef}
+              />
+            </div>
+          </Container>
+          <Container>
+            <table className="statistic-spendings">
+              <thead>
+                {dataArray.length && dataArray[detail] ? (
                   <tr>
-                    <td>{item.Category.name}:</td>
-                    <td>{item.totalSpendings} đ</td>
+                    <th>Tổng cộng:</th>
+                    <th style={{ textAlign: "end" }}>
+                      {Number(dataArray[detail].totalAmount).toLocaleString()} đ
+                    </th>
                   </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
-      </Container>
+                ) : (
+                  <div style={{ textAlign: "center" }}>
+                    <p style={{ marginBottom: 10 }}>Không có dữ liệu</p>{" "}
+                    <EmptyIcon size={64} />
+                  </div>
+                )}
+              </thead>
+              <tbody>
+                {dataArray.length
+                  ? dataArray[detail].categories.map((item) => (
+                      <tr key={item.category_id}>
+                        <td>{item.Category.name}:</td>
+                        <td style={{ textAlign: "end" }}>
+                          {Number(item.totalSpendings).toLocaleString()} đ
+                        </td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+          </Container>
+        </>
+      )}
     </>
   );
 }

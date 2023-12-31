@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseConfig } from "./constants";
@@ -34,7 +33,7 @@ export const getMessagingToken = async () => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging.onMessage((payload) => {
+    messaging?.onMessage((payload) => {
       resolve(payload);
     });
   });

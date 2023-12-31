@@ -1,19 +1,16 @@
-import { Button, Container, TextField } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useState } from "react";
-import DatePicker from "react-mobile-datepicker";
-import { useEffect } from "react";
-import { dateConfig } from "../config/dateConfig";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Button, Container, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Select from "@mui/material/Select";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import DatePicker from "react-mobile-datepicker";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Modal, ModalDialog, ModalClose, Typography } from "@mui/joy";
+import { dateConfig } from "../config/dateConfig";
 function SpendingAdd() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState("");
@@ -36,9 +33,9 @@ function SpendingAdd() {
       });
   }, []);
 
-  const handleClick = () => {
-    setDateData({ isOpen: true });
-  };
+  // const handleClick = () => {
+  //   setDateData({ isOpen: true });
+  // };
 
   const handleToggle = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -125,7 +122,7 @@ function SpendingAdd() {
               >
                 {categories.length
                   ? categories.map((item) => (
-                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                      <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                     ))
                   : null}
               </Select>
