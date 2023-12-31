@@ -20,7 +20,7 @@ function SpendingLimitAdd() {
   const navigate = useNavigate();
   const [category, setCategory] = useState(1);
   const [categories, setCategories] = useState("");
-  const [money, setMoney] = useState(100000);
+  const [money, setMoney] = useState(0);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [error, setError] = useState({ money: "", category: "" });
 
@@ -60,11 +60,11 @@ function SpendingLimitAdd() {
     if (!category) {
       setError({ category: "*category is required" });
     }
-    if (money < 0) {
+    if (money <= 0) {
       setError({ money: "Số tiền phải lớn hơn 0!" });
     }
 
-    if (category && money >= 0) {
+    if (category && money > 0) {
       await axios.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
         limitMoney: money,
         date: `${dateData.time.getFullYear()}-${
@@ -89,7 +89,7 @@ function SpendingLimitAdd() {
               type="number"
               name=""
               id=""
-              placeholder="100.000"
+              placeholder="000.000"
               onChange={(event) => setMoney(event.target.value)}
             />{" "}
             đ
@@ -113,15 +113,7 @@ function SpendingLimitAdd() {
               </Select>
               <div className="error-message">{error.category}</div>
             </FormControl>
-            {/* <TextField
-              className="spending-add-form_text"
-              style={{ borderRadius: "20px !important" }}
-              placeholder="Mua áo"
-            /> */}
-            <button
-              className="spending-add-form_date"
-              onClick={handleToggle}
-            >
+            <button className="spending-add-form_date" onClick={handleToggle}>
               {(dateData.time.getMonth() + 1).toString().padStart(2, "0")}/
               {dateData.time.getFullYear()}
               <KeyboardArrowDownIcon />

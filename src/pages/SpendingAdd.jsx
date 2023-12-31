@@ -15,7 +15,7 @@ function SpendingAdd() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState("");
   const [category, setCategory] = useState(1);
-  const [money, setMoney] = useState(100000);
+  const [money, setMoney] = useState(0);
   const [note, setNote] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [error, setError] = useState({ money: "", category: "", note: "" });
@@ -60,11 +60,11 @@ function SpendingAdd() {
     if (!category) {
       setError({ category: "*category is required" });
     }
-    if (money < 0) {
+    if (money <= 0) {
       setError({ money: "*Số tiền phải lớn hơn 0!" });
     }
 
-    if (category && money >= 0) {
+    if (category && money > 0) {
       axios
         .post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`, {
           money,
@@ -104,7 +104,7 @@ function SpendingAdd() {
               id=""
               min={0}
               onChange={(event) => setMoney(event.target.value)}
-              placeholder="100000"
+              placeholder="000.000"
             />{" "}
             đ
           </div>
