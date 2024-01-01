@@ -7,6 +7,12 @@ import { Link } from "react-router-dom";
 import SubScreenHeader from "../components/SubScreenHeader";
 import NextIcon from "../icons/NextIcon";
 import LoadingIcon from "../icons/LoadingIcon";
+const getDate = (date) => {
+  const split = date.split("/");
+  split.splice(1, 0, "2");
+  const nDate = new Date(split.join("/"));
+  return nDate;
+};
 /**
  * @typedef {{id:number,limit_money:number;category_id:number;Category:{id:number;name:string;icon_id:number;Icon:{id:number;content:string;name:string}}}} Category
  * @typedef {{date: string, categories: Category[]}} SpendingLimt
@@ -23,7 +29,14 @@ function SpendingLimit() {
     axios
       .get(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`)
       .then((res) => {
-        setData(res.data.data.limitCategories);
+        const data = res.data.data.limitCategories.sort((a, b) => {
+          const d1 = getDate(a.date);
+          const d2 = getDate(b.date);
+          if (d1 > d2) return -1;
+          if (d1 < d2) return 1;
+          return 0;
+        });
+        setData(data);
         setLoading(false);
       });
   }, []);
@@ -39,7 +52,7 @@ function SpendingLimit() {
             />
           </div>
           <div className="text-[#91919F] p-2 bg-white rounded-2xl font-medium flex items-center justify-between gap-1">
-            <span>12/2023</span>
+            <span>Tháng</span>
             <NextIcon
               color="#91919F"
               size={12}
@@ -60,15 +73,22 @@ function SpendingLimit() {
       ) : (
         <div className="spending-list">
           {data.map(({ categories, date }) => {
-            const split = date.split("/");
-            split.splice(1, 0, "2")
-            const nDate = new Date(split.join("/"));
+            const nDate = getDate(date);
+            const fomatedTitle = `Tháng ${(nDate.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}, ${nDate.getFullYear()}`;
             const fomatedDate = `${(nDate.getMonth() + 1)
               .toString()
               .padStart(2, "0")}/${nDate.getFullYear()}`;
+            const isThisMonth =
+              new Date().getMonth() === nDate.getMonth() &&
+              new Date().getFullYear() === nDate.getFullYear();
+
             return (
               <div key={date}>
-                <div className="spending-date">{fomatedDate}</div>
+                <div className="spending-date">
+                  {isThisMonth ? "Tháng này" : fomatedTitle}
+                </div>
                 {categories.map((spending) => (
                   <div
                     key={spending.id}

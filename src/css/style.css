@@ -80,7 +80,7 @@ body {
 }
 
 .nav-add {
-  background-color: #fd3c81e5 !important;
+  background-color: #fd3c80 !important;
   border-radius: 50% !important;
   height: 80px;
   width: 80px;
@@ -557,4 +557,29 @@ td {
 
 .home-table-row {
   margin-bottom: 6px;
+}
+
+@keyframes bell-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
+}
+
+.bell {
+  animation: bell-ring 1s infinite;
 }
