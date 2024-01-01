@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Container } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import SubScreenHeader from "../components/SubScreenHeader";
@@ -24,6 +24,18 @@ function SpendingLimit() {
    * @type {[SpendingLimt[], React.Dispatch<SpendingLimt[]>]}
    */
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const filteredData = useMemo(() => {
+    if (!search) return data;
+    return data
+      .map((data) => {
+        const categories = data.categories.filter((spending) =>
+          spending.Category.name.toLowerCase().includes(search.toLowerCase()),
+        );
+        return { ...data, categories };
+      })
+      .filter((data) => data.categories.length > 0);
+  }, [data, search]);
   useEffect(() => {
     setLoading(true);
     axios
@@ -49,6 +61,8 @@ function SpendingLimit() {
             <input
               className="w-full placeholder-white font-medium placeholder:font-medium bg-transparent"
               placeholder="Tìm kiếm"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <div className="text-[#91919F] p-2 bg-white rounded-2xl font-medium flex items-center justify-between gap-1">
@@ -72,7 +86,7 @@ function SpendingLimit() {
         </div>
       ) : (
         <div className="spending-list">
-          {data.map(({ categories, date }) => {
+          {filteredData.map(({ categories, date }) => {
             const nDate = getDate(date);
             const fomatedTitle = `Tháng ${(nDate.getMonth() + 1)
               .toString()

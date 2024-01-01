@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 // import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import { Search } from "@mui/icons-material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Footer from "../components/Footer";
 import SpendingItem from "../components/SpendingItem";
@@ -14,8 +14,23 @@ import LoadingIcon from "../icons/LoadingIcon";
 function Spending() {
   const [data, setData] = useState([]);
   const [mess, setMess] = useState({ content: "", show: false });
+  const [search, setSearch] = useState("");
   const [loadStatus, setLoadStatus] = useState("loading");
-
+  const filteredData = useMemo(() => {
+    if (!search) return data;
+    return data
+      .map((data) => {
+        const spendings = data.spendings.filter(
+          (spending) =>
+            spending.Category.name
+              .toLowerCase()
+              .includes(search.toLowerCase()) ||
+            spending.note.toLowerCase().includes(search.toLowerCase()),
+        );
+        return { ...data, spendings };
+      })
+      .filter((data) => data.spendings.length > 0);
+  }, [data, search]);
   useEffect(() => {
     setLoadStatus("loading");
     axios
@@ -94,6 +109,8 @@ function Spending() {
           <input
             className="w-[240px] h-5 py-3 px-6 bg-[#FD3C8177] rounded-full outline-none border-none text-base placeholder:text-white shadow-md"
             placeholder="Tìm kiếm"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
           />
         </label>
         {loadStatus === "loading" ? (
@@ -102,7 +119,7 @@ function Spending() {
           </div>
         ) : (
           <div className="spending-list">
-            {data.map((data) => {
+            {filteredData.map((data) => {
               const date = new Date(data.date);
               const fomatedTitle = `${date
                 .getDate()
