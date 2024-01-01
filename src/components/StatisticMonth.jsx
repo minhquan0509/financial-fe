@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import EmptyIcon from "../icons/Empty";
 import LoadingIcon from "../icons/LoadingIcon";
+import { useSearchParams } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -59,13 +60,19 @@ export const options = {
 function StatisticMonth() {
   const chartRef = useRef();
   const [detail, setDetail] = useState(0);
+  const [searchParams] = useSearchParams();
   const onClick = (event) => {
     if (getElementAtEvent(chartRef.current, event).length) {
       setDetail(getElementAtEvent(chartRef.current, event)[0].index);
     }
   };
-
-  const [chooseDate, setChooseDate] = useState(new Date());
+  const [chooseDate, setChooseDate] = useState(
+    new Date(
+      `${searchParams.get("year") || new Date().getFullYear()}-${
+        searchParams.get("month") || new Date().getMonth() + 1
+      }-01`,
+    ),
+  );
   const [loadStatus, setLoadStatus] = useState("loading");
   const maxDate = new Date();
   const handleIncrementMonth = () => {

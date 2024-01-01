@@ -88,9 +88,7 @@ function Home() {
                     <PercentageBar value={item.percentage / 100} />
                   </td>
                   <td className="w-1/12 text-center">
-                    {item.percentage > 100 && (
-                      <WarningIcon size={25} />
-                    )}
+                    {item.percentage > 100 && <WarningIcon size={25} />}
                   </td>
                 </tr>
               ))
@@ -114,7 +112,9 @@ function Home() {
           </div>
         </Container>
         <Link
-          to="/statistics"
+          to={`/statistics?year=${chooseDate.getFullYear()}&month=${
+            chooseDate.getMonth() + 1
+          }`}
           className="home-report rounded-lg"
         >
           <div className="home-report-label">Xem báo cáo tài chính</div>
