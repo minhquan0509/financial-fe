@@ -18,7 +18,7 @@ function SpendingAdd() {
 	const navigate = useNavigate();
 	const [categories, setCategories] = useState("");
 	const [category, setCategory] = useState("");
-	const [money, setMoney] = useState(0);
+	const [money, setMoney] = useState("");
 	const [note, setNote] = useState("");
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [error, setError] = useState({ money: "", category: "", note: "" });
@@ -61,7 +61,14 @@ function SpendingAdd() {
 	};
 
   const handleChangeCost = (event) => {
-    setMoney(event.target.value);
+    let value = event.target.value || "";
+    value = value.split("").filter(v=>v !== "," && v!=='.').join("");
+    value = Number(value);
+    setMoney(v=> {
+      if(value < 0 || isNaN(value)) return v;
+      if(value === 0) return "";
+      return value.toLocaleString();
+    });
   }
 
 	const handleChange = (event) => {
@@ -116,13 +123,13 @@ function SpendingAdd() {
 					<div className="spending-add-money-input">
 						<input
 							className="spending-add-money"
-							type="number"
 							name=""
 							id=""
 							min={0}
+              value={money}
 							onChange={(event) => handleChangeCost(event)}
 							placeholder="000.000"
-              style={{color: "white"}}
+              style={{color: "white", width: money.length * 15 + 50}}
 						/>{" "}
 						đ
 					</div>
@@ -149,7 +156,7 @@ function SpendingAdd() {
 											>
 												{item.name}
 											</MenuItem>
-									  ))
+									))
 									: null}
 							</Select>
               <div className="error-message">{error.category}</div>
@@ -170,7 +177,7 @@ function SpendingAdd() {
 							className="spending-add-form_date"
 							onClick={handleToggle}
 						>
-							{dateData.time.getDate()}/
+							{dateData.time.getDate().toString().padStart(2, "0")}/
 							{(dateData.time.getMonth() + 1)
 								.toString()
 								.padStart(2, "0")}
