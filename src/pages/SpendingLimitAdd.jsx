@@ -1,6 +1,3 @@
-/** @format */
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
 	Button,
 	Container,
@@ -27,7 +24,6 @@ function SpendingLimitAdd() {
 	const [categories, setCategories] = useState("");
 	const [money, setMoney] = useState("");
 	const [showDatePicker, setShowDatePicker] = useState(false);
-	const [error, setError] = useState({ money: "", category: "" });
 
 	const [dateData, setDateData] = useState({
 		time: new Date(),
@@ -147,9 +143,6 @@ function SpendingLimitAdd() {
 									  ))
 									: null}
 							</Select>
-							<div className="error-message">
-								{error.category}
-							</div>
 						</FormControl>
 						<button
 							className="spending-add-form_date"

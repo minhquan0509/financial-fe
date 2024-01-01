@@ -21,7 +21,6 @@ function SpendingAdd() {
 	const [money, setMoney] = useState("");
 	const [note, setNote] = useState("");
 	const [showDatePicker, setShowDatePicker] = useState(false);
-	const [error, setError] = useState({ money: "", category: "", note: "" });
 
 	const [dateData, setDateData] = useState({
 		time: new Date(),
@@ -79,10 +78,12 @@ function SpendingAdd() {
 		e.preventDefault(); // Prevent the default form submission behavior
 
 		if (!category) {
-			setError({ category: "*Bạn phải chọn danh mục chi tiêu !" });
+			toast.error("Bạn phải chọn danh mục chi tiêu !");
+			return;
 		}
 		if (money <= 0) {
-			setError({ money: "*Số tiền phải lớn hơn 0!" });
+			toast.error("Số tiền phải lớn hơn 0!");
+			return;
 		}
 
 		if (category && money > 0) {
@@ -133,7 +134,6 @@ function SpendingAdd() {
 						/>{" "}
 						đ
 					</div>
-					<div className="error-message">{error.money}</div>
 					<div className="spending-add-form_wrapper">
 						<FormControl sx={{ minWidth: 350 }}>
 							<InputLabel id="demo-simple-select-label">
@@ -159,7 +159,6 @@ function SpendingAdd() {
 									))
 									: null}
 							</Select>
-              <div className="error-message">{error.category}</div>
 						</FormControl>
 						<TextField
 							className="spending-add-form_text"
@@ -171,8 +170,6 @@ function SpendingAdd() {
 							required
 							onChange={(event) => setNote(event.target.value)}
 						/>
-						<div className="error-message">{error.note}</div>
-
 						<button
 							className="spending-add-form_date"
 							onClick={handleToggle}
