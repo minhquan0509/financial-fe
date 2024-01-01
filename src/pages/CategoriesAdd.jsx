@@ -77,7 +77,7 @@ function CategoriesAdd() {
                     src={`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/${icon.content}`}
                     alt={icon.name}
                     onClick={() => setCatIcon(icon.name)}
-                    className="w-16 h-16 transition-all border-solid border-[1px] rounded-[20px]"
+                    className="w-16 h-16 transition-all duration-300 border-solid border-[1.5px] rounded-[20px] active:border-[0] box-border"
                     style={{
                       filter:
                         icon.name === cat_icon

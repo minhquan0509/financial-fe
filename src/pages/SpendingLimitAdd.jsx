@@ -103,10 +103,12 @@ function SpendingLimitAdd() {
 	};
 	return (
 		<div className="home container">
-			<SubScreenHeader
-				type="pink"
-				title="Thêm hạn mức chi tiêu"
-			/>
+			<div className="px-2">
+				<SubScreenHeader
+					type="pink"
+					title="Thêm hạn mức chi tiêu"
+				/>
+			</div>
 			<Container className="spending-add-body">
 				<form>
 					<div className="spending-add-money-input">

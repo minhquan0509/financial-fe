@@ -54,12 +54,12 @@ function Categories() {
           {data.map((spending) => (
             <div
               key={spending.id}
-              className="spending-detail-list"
+              className="spending-detail-list shadow-sm"
             >
               <div className="spending-category gap-2">
                 <div className="spending-icon">
                   <img
-                    className="w-16 h-16"
+                    className="w-16 h-16 spending-icon-img"
                     src={
                       `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
                       spending.Icon.content

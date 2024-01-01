@@ -35,13 +35,14 @@ body {
 .home-container {
   background: linear-gradient(
     182deg,
-    rgba(253, 60, 129, 0.16) 9.01%,
-    rgba(248, 237, 216, 0) 64.58%
+    rgba(255, 77, 139, 0.16) 9%,
+    rgba(248, 216, 243, 0) 64.58%
   );
   padding: 10px;
   margin-bottom: 56px;
 }
-
+/* .menu-container {
+} */
 .border-none {
   border: none !important;
 }
@@ -254,7 +255,11 @@ body {
   border-radius: 50px;
   min-height: 70vh;
   background-color: #fff;
-  padding: 26px 20px;
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
 }
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
@@ -397,6 +402,7 @@ body {
   background-color: #fd3c81e5;
   opacity: 0.5;
   color: #fff;
+  transform: scale(1.1);
 }
 
 .statistic-month {
@@ -582,4 +588,7 @@ td {
 
 .bell {
   animation: bell-ring 1s infinite;
+}
+.spending-icon-img:hover{
+  animation: bell-ring .8s;
 }
