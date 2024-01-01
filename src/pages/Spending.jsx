@@ -102,21 +102,41 @@ function Spending() {
           </div>
         ) : (
           <div className="spending-list">
-            {data.map((data) => (
-              <div key={data.date}>
-                <div className="spending-date">{data.date}</div>
-                {data.spendings.map((spending) => (
-                  <SpendingItem
-                    key={spending.id}
-                    name={spending.Category.name}
-                    icon={spending.Category.Icon.content}
-                    note={spending.note}
-                    money={spending.money}
-                    onClick={() => handleClickSpending(spending.note)}
-                  />
-                ))}
-              </div>
-            ))}
+            {data.map((data) => {
+              const date = new Date(data.date);
+              const fomatedTitle = `${date
+                .getDate()
+                .toString()
+                .padStart(2, "0")}/${(date.getMonth() + 1)
+                .toString()
+                .padStart(2, "0")}/${date.getFullYear()}`;
+              const isToday = new Date().toDateString() === date.toDateString();
+              const isYesterday =
+                new Date(
+                  new Date().setDate(new Date().getDate() - 1),
+                ).toDateString() === date.toDateString();
+              return (
+                <div key={data.date}>
+                  <div className="spending-date">
+                    {isToday
+                      ? "Hôm nay"
+                      : isYesterday
+                      ? "Hôm qua"
+                      : fomatedTitle}
+                  </div>
+                  {data.spendings.map((spending) => (
+                    <SpendingItem
+                      key={spending.id}
+                      name={spending.Category.name}
+                      icon={spending.Category.Icon.content}
+                      note={spending.note}
+                      money={spending.money}
+                      onClick={() => handleClickSpending(spending.note)}
+                    />
+                  ))}
+                </div>
+              );
+            })}
           </div>
         )}
       </Container>
