@@ -59,13 +59,7 @@ export const options = {
 
 function StatisticMonth() {
   const chartRef = useRef();
-  const [detail, setDetail] = useState(0);
   const [searchParams] = useSearchParams();
-  const onClick = (event) => {
-    if (getElementAtEvent(chartRef.current, event).length) {
-      setDetail(getElementAtEvent(chartRef.current, event)[0].index);
-    }
-  };
   const [chooseDate, setChooseDate] = useState(
     new Date(
       `${searchParams.get("year") || new Date().getFullYear()}-${
@@ -73,7 +67,14 @@ function StatisticMonth() {
       }-01`,
     ),
   );
+  const [detail, setDetail] = useState(0);
   const [loadStatus, setLoadStatus] = useState("loading");
+  const [dataArray, setDataArray] = useState([]);
+  const onClick = (event) => {
+    if (getElementAtEvent(chartRef.current, event).length) {
+      setDetail(getElementAtEvent(chartRef.current, event)[0].index);
+    }
+  };
   const maxDate = new Date();
   const handleIncrementMonth = () => {
     const newDate = new Date(chooseDate);
@@ -87,21 +88,28 @@ function StatisticMonth() {
     newDate.setMonth(chooseDate.getMonth() - 1);
     setChooseDate(newDate);
   };
-  const [dataArray, setDataArray] = useState([]);
   useEffect(() => {
     setLoadStatus("loading");
     axios
       .get(
         `${
           process.env.REACT_APP_API_ENDPOINT_PRODUCT
-        }/spendings/statistics?year=${chooseDate.getFullYear()}&month=${
-          (chooseDate.getMonth() + 1).toString().padStart(2, "0")
-        }`,
+        }/spendings/statistics?year=${chooseDate.getFullYear()}&month=${(
+          chooseDate.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, "0")}`,
       )
       .then((res) => {
         setDataArray(res.data.data.spendings);
         setLoadStatus("success");
       });
+    const isChooseCurrentMonth =
+      chooseDate.getFullYear() === new Date().getFullYear() &&
+      chooseDate.getMonth() === new Date().getMonth();
+    if (isChooseCurrentMonth) {
+      setDetail(new Date().getDate() - 1);
+    }
   }, [chooseDate]);
 
   const getSpendings = () => {

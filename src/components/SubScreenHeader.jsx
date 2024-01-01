@@ -6,7 +6,7 @@ import BackIcon from "../icons/BackIcon";
 const SubScreenHeader = ({ title, type = "black" }) => {
   const navigate = useNavigate();
   return (
-    <div className="p-6">
+    <div className="py-6 px-3">
       <div className="relative grid place-items-center">
         <div
           className="text-2xl font-bold"

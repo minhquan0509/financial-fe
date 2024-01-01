@@ -7,7 +7,7 @@ import ScreenHeader from "../components/ScreenHeader";
 
 const Menu = () => {
   return (
-    <div>
+    <div className="menu-container">
       <ScreenHeader title="Menu" />
       <Divider />
       <MenuList>

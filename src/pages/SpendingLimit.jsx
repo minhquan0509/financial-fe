@@ -106,12 +106,12 @@ function SpendingLimit() {
                 {categories.map((spending) => (
                   <div
                     key={spending.id}
-                    className="spending-detail-list"
+                    className="spending-detail-list shadow-sm"
                   >
                     <div className="spending-category">
                       <div className="spending-icon">
                         <img
-                          className="w-14 h-14"
+                          className="w-14 h-14 spending-icon-img"
                           src={
                             `${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/icons/` +
                             spending.Category.Icon.content

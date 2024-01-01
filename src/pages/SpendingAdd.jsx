@@ -1,6 +1,4 @@
 /** @format */
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Button, Container, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -14,6 +12,7 @@ import DatePicker from "react-mobile-datepicker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { dateConfig } from "../config/dateConfig";
+import SubScreenHeader from "../components/SubScreenHeader";
 function SpendingAdd() {
 	const navigate = useNavigate();
 	const [categories, setCategories] = useState("");
@@ -116,10 +115,7 @@ function SpendingAdd() {
 
 	return (
 		<div className="home container">
-			<Container className="spending-add-header">
-				<ArrowBackIcon onClick={() => navigate(-1)} />
-				<h2 className="spending-add-title">Thêm khoản chi tiêu</h2>
-			</Container>
+			<div className="px-2"><SubScreenHeader type="pink" title="Thêm khoản chi tiêu"/></div>
 			<Container className="spending-add-body">
 				<form>
 					<div className="spending-add-money-input">
@@ -131,11 +127,11 @@ function SpendingAdd() {
               value={money}
 							onChange={(event) => handleChangeCost(event)}
 							placeholder="000.000"
-              style={{color: "white", width: money.length * 15 + 50}}
+              style={{color: "white", width: money.length * 17 + 40}}
 						/>{" "}
 						đ
 					</div>
-					<div className="spending-add-form_wrapper">
+					<div className="spending-add-form_wrapper flex flex-col gap-2 items-stretch">
 						<FormControl sx={{ minWidth: 350 }}>
 							<InputLabel id="demo-simple-select-label">
 								Danh mục
