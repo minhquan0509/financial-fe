@@ -56,7 +56,7 @@ function SpendingLimit() {
     <Container className="spending">
       <SubScreenHeader title="Hạn mức chi tiêu" />
       <div className="spending-search">
-        <div className="spending-search-bar py-3 px-5 flex items-center shadow-md flex-1">
+        <div className="spending-search-bar py-2 px-5 flex items-center shadow-md flex-1">
           <div className="flex-1 w-10 text-lg">
             <input
               className="w-full placeholder-white font-medium placeholder:font-medium bg-transparent"
@@ -65,7 +65,7 @@ function SpendingLimit() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="text-[#91919F] p-2 bg-white rounded-2xl font-medium flex items-center justify-between gap-1">
+          <div className="text-[#91919F] text-sm px-2 py-[5px] bg-white rounded-2xl font-medium flex items-center justify-between gap-1">
             <span>Tháng</span>
             <NextIcon
               color="#91919F"
@@ -126,7 +126,7 @@ function SpendingLimit() {
                       </div>
                     </div>
                     <div className="flex flex-col items-end justify-evenly self-stretch">
-                      <div className="price">
+                      <div className="price text-blue-500">
                         {Number(spending.limit_money).toLocaleString()} đ
                       </div>
                       <div
