@@ -98,7 +98,7 @@ function SpendingLimitAdd() {
 				}-01`,
 				categoryId: category,
 			})
-			.then(() => navigate("/spendings-limit"))
+			.then(() => navigate(-1))
 			.catch(() => toast.error("Bạn đã thêm hạn mức cho tháng này rồi"));
 	};
 	return (
