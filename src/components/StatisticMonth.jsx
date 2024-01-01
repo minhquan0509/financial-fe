@@ -95,7 +95,7 @@ function StatisticMonth() {
         `${
           process.env.REACT_APP_API_ENDPOINT_PRODUCT
         }/spendings/statistics?year=${chooseDate.getFullYear()}&month=${
-          chooseDate.getMonth() + 1
+          (chooseDate.getMonth() + 1).toString().padStart(2, "0")
         }`,
       )
       .then((res) => {

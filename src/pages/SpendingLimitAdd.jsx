@@ -80,17 +80,19 @@ function SpendingLimitAdd() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		let value = money.split("").filter(v=>v !== "," && v!=='.').join("");
+    value = Number(value);
 		if (!category) {
 			toast.error("Bạn chưa chọn danh mục");
 			return;
 		}
-		if (money <= 0) {
+		if (value <= 0) {
 			toast.error("Số tiền phải lớn hơn 0");
 			return;
 		}
 		await axios
 			.post(`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/limits`, {
-				limitMoney: money,
+				limitMoney: value,
 				date: `${dateData.time.getFullYear()}-${
 					dateData.time.getMonth() + 1
 				}-01`,

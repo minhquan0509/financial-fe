@@ -76,22 +76,23 @@ function SpendingAdd() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Prevent the default form submission behavior
+		let value = money.split("").filter(v=>v !== "," && v!=='.').join("");
+    value = Number(value);
 
 		if (!category) {
 			toast.error("Bạn phải chọn danh mục chi tiêu !");
 			return;
 		}
-		if (money <= 0) {
+		if (value <= 0) {
 			toast.error("Số tiền phải lớn hơn 0!");
 			return;
 		}
-
-		if (category && money > 0) {
+		if (category && value > 0) {
 			axios
 				.post(
 					`${process.env.REACT_APP_API_ENDPOINT_PRODUCT}/spendings`,
 					{
-						money,
+						money: value,
 						note,
 						date: `${dateData.time.getFullYear()}/${
 							dateData.time.getMonth() + 1

@@ -36,7 +36,10 @@ function Categories() {
       <SubScreenHeader title="Danh mục của tôi" />
       <div className="spending-search">
         <div className="limit-search">
-          <div className="category-label">Danh mục chi tiêu</div>
+          <input
+            className="w-[240px] h-5 py-3 px-6 bg-[#FD3C8177] rounded-full outline-none border-none text-base placeholder:text-white shadow-md"
+            placeholder="Tìm kiếm"
+          />
         </div>
         <Link to="/category-add">
           <AddIcon className="spending-limit-add_icon" />
