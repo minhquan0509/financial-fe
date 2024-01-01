@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
+import ScreenHeader from "../components/ScreenHeader";
 import StatisticMonth from "../components/StatisticMonth";
 import StatisticYear from "../components/StatisticYear";
-import ScreenHeader from "../components/ScreenHeader";
 
 function Statistic() {
   const [tab, setTab] = useState(1);
