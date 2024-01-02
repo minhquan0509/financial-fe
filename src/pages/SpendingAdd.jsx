@@ -104,7 +104,7 @@ function SpendingAdd() {
 						toast.warning(res.data.data.warning, {
 							autoClose: false,
 						});
-					navigate(-1);
+					navigate("/spendings");
 				})
 				.catch((error) => {
 					toast.error(error.response.data.message);
