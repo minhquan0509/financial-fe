@@ -62,9 +62,9 @@ function StatisticMonth() {
   const [searchParams] = useSearchParams();
   const [chooseDate, setChooseDate] = useState(
     new Date(
-      `${searchParams.get("year") || new Date().getFullYear()}-${
-        searchParams.get("month") || new Date().getMonth() + 1
-      }-01`,
+      `01/${searchParams.get("month") || new Date().getMonth() + 1}/${
+        searchParams.get("year") || new Date().getFullYear()
+      }`,
     ),
   );
   const [detail, setDetail] = useState(0);
