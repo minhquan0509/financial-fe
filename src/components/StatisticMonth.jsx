@@ -34,7 +34,7 @@ export const options = {
       display: false,
     },
     tooltip: {
-      enabled: false,
+      enabled: true,
     },
   },
   barThickness: 40,
